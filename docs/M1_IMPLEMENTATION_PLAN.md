@@ -1,6 +1,6 @@
 # M1 Backend Implementation Plan
 
-> Status: rencana disetujui untuk dieksekusi pada 26 September 2026.
+> Status: seluruh fase iterasi backend operator selesai dan diverifikasi pada 26 September 2026.
 
 ## 1. Tujuan
 
@@ -76,38 +76,38 @@ Tabel aspirasi tetap tertutup untuk publik. Operator terautentikasi hanya mendap
 
 ### Fase A — Fondasi
 
-- [ ] Tambahkan TypeScript dan library resmi Supabase.
-- [ ] Buat klien browser/server dan pembaruan sesi.
-- [ ] Tambahkan konfigurasi environment yang diperlukan.
+- [x] Tambahkan TypeScript dan library resmi Supabase.
+- [x] Buat klien browser/server dan pembaruan sesi.
+- [x] Tambahkan konfigurasi environment yang diperlukan.
 
 ### Fase B — Database dan Keamanan
 
-- [ ] Tambahkan `operator_profiles` dan `complaint_events`.
-- [ ] Aktifkan RLS dan policy berbasis operator aktif.
-- [ ] Tambahkan fungsi perubahan status yang atomik.
-- [ ] Terapkan migrasi ke Supabase dan verifikasi policy.
+- [x] Tambahkan `operator_profiles` dan `complaint_events`.
+- [x] Aktifkan RLS dan policy berbasis operator aktif.
+- [x] Tambahkan fungsi perubahan status yang atomik.
+- [x] Terapkan migrasi ke Supabase dan verifikasi policy.
 
 ### Fase C — Akses Operator
 
-- [ ] Buat halaman login.
-- [ ] Tolak akun Supabase yang tidak terdaftar sebagai operator aktif.
-- [ ] Buat logout dan proteksi seluruh route `/operator`.
+- [x] Buat halaman login.
+- [x] Tolak akun Supabase yang tidak terdaftar sebagai operator aktif.
+- [x] Buat logout dan proteksi seluruh route `/operator`.
 
 ### Fase D — Pengelolaan Aspirasi
 
-- [ ] Buat shell dashboard responsif.
-- [ ] Tampilkan jumlah laporan per status.
-- [ ] Tampilkan daftar dan filter status.
-- [ ] Buat halaman detail.
-- [ ] Tambahkan perubahan status dan feedback hasil.
+- [x] Buat shell dashboard responsif.
+- [x] Tampilkan jumlah laporan per status.
+- [x] Tampilkan daftar dan filter status.
+- [x] Buat halaman detail.
+- [x] Tambahkan perubahan status dan feedback hasil.
 
 ### Fase E — Verifikasi dan Pengiriman
 
-- [ ] Jalankan test dan production build.
-- [ ] Uji login, daftar, detail, perubahan status, dan logout dengan akun sementara.
-- [ ] Hapus data serta akun uji.
-- [ ] Perbarui dokumentasi operasional.
-- [ ] Commit dan push perubahan secara terstruktur.
+- [x] Jalankan test dan production build.
+- [x] Uji login, daftar, detail, perubahan status, dan logout dengan akun sementara.
+- [x] Hapus data serta akun uji.
+- [x] Perbarui dokumentasi operasional.
+- [x] Commit dan push perubahan secara terstruktur.
 
 ## 7. Acceptance Criteria
 
@@ -124,4 +124,3 @@ Tabel aspirasi tetap tertutup untuk publik. Operator terautentikasi hanya mendap
 ## 8. Lanjutan Setelah Iterasi Ini
 
 Urutan berikutnya adalah CRUD pengumuman, layanan, dan UMKM; pembacaan konten nyata pada halaman publik; Storage untuk media; lalu deployment produksi, analytics, backup, dan panduan serah terima.
-
