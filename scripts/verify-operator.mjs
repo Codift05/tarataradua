@@ -19,6 +19,7 @@ const outsiderEmail = `outsider-check-${suffix}@example.com`;
 let operatorId;
 let outsiderId;
 let complaintId;
+let announcementId;
 
 try {
   const { data: operatorUser, error: operatorCreateError } = await admin.auth.admin.createUser({
@@ -103,6 +104,34 @@ try {
     .eq("id", complaintId);
   assert(privateFieldError, "Operator hanya boleh memperbarui kolom status.");
 
+  const { data: draft, error: draftError } = await operator
+    .from("announcements")
+    .insert({ title: "Pengumuman uji", category: "Pengumuman", summary: "Data sementara untuk pemeriksaan konten.", status: "Draft" })
+    .select("id, published_at")
+    .single();
+  assert.ifError(draftError);
+  announcementId = draft.id;
+  assert.equal(draft.published_at, null);
+
+  const { data: hiddenDraft } = await anonymous.from("announcements").select("id").eq("id", announcementId);
+  assert.equal(hiddenDraft?.length || 0, 0, "Anon tidak boleh membaca draft pengumuman.");
+
+  const { error: publishError } = await operator.from("announcements").update({ status: "Terbit" }).eq("id", announcementId);
+  assert.ifError(publishError);
+
+  const { data: published, error: publishedError } = await anonymous
+    .from("announcements")
+    .select("id, published_at")
+    .eq("id", announcementId)
+    .single();
+  assert.ifError(publishedError);
+  assert(published.published_at, "Pengumuman terbit harus memiliki published_at.");
+
+  const { error: anonymousWriteError } = await anonymous
+    .from("announcements")
+    .insert({ title: "Tidak sah", category: "Pengumuman", summary: "Anon tidak boleh menulis konten.", status: "Terbit" });
+  assert(anonymousWriteError, "Anon tidak boleh menambah konten.");
+
   const { data: outsiderUser, error: outsiderCreateError } = await admin.auth.admin.createUser({
     email: outsiderEmail,
     password,
@@ -117,9 +146,14 @@ try {
   const { data: outsiderRows, error: outsiderReadError } = await outsider.from("complaints").select("id");
   assert.ifError(outsiderReadError);
   assert.equal(outsiderRows.length, 0, "Akun tanpa profil operator tidak boleh membaca aspirasi.");
+  const { error: outsiderWriteError } = await outsider
+    .from("services")
+    .insert({ name: "Layanan tidak sah", description: "Akun non-operator tidak boleh menulis." });
+  assert(outsiderWriteError, "Akun tanpa profil operator tidak boleh menambah konten.");
 
-  console.log("Operator integration: login, RLS, status update, and audit log passed.");
+  console.log("Operator integration: login, RLS, status update, audit log, and content publishing passed.");
 } finally {
+  if (announcementId) await admin.from("announcements").delete().eq("id", announcementId);
   if (complaintId) await admin.from("complaints").delete().eq("id", complaintId);
   if (operatorId) await admin.auth.admin.deleteUser(operatorId);
   if (outsiderId) await admin.auth.admin.deleteUser(outsiderId);
