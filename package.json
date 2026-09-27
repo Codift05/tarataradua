@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "test": "node --test",
-    "test:integration": "node --env-file=.env.local scripts/verify-operator.mjs"
+    "test:integration": "node --env-file=.env.local scripts/verify-operator.mjs",
+    "operator:create": "node --env-file=.env.local scripts/create-operator.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
