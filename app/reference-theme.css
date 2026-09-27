@@ -160,12 +160,6 @@ footer[id] {
   object-position: center;
 }
 
-.eyebrow {
-  margin-bottom: 22px;
-  color: var(--accent-strong);
-  font-size: 11px;
-}
-
 h1 {
   max-width: 9.5ch;
   margin-bottom: 24px;
@@ -504,10 +498,6 @@ footer .shell {
   .hero-copy {
     min-height: 720px;
     padding: 42px 22px 330px;
-  }
-
-  .eyebrow {
-    margin-bottom: 16px;
   }
 
   h1 {

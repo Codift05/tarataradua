@@ -121,15 +121,6 @@ section[id], footer[id] { scroll-margin-top: 96px; }
   padding-block: 48px;
 }
 
-.eyebrow {
-  margin: 0 0 18px;
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
 h1, h2, h3, p { margin-top: 0; }
 
 h1 {
@@ -252,7 +243,7 @@ h2 { margin-bottom: 16px; font-size: clamp(32px, 4vw, 50px); line-height: 1.12; 
 .business-list { margin-top: 34px; }
 .business-list article { padding: 19px 0; border-bottom: 1px solid var(--line); }
 .business-list article:first-child { border-top: 1px solid var(--line); }
-.business-list span { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.business-list span { color: var(--accent); font-size: 14px; font-weight: 700; }
 .business-list h3 { margin: 6px 0 3px; font-size: 20px; }
 .business-list p { margin-bottom: 0; color: var(--muted); }
 .business-list a { display: inline-block; margin-top: 8px; color: var(--accent); font-weight: 750; text-underline-offset: 4px; }

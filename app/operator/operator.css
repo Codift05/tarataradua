@@ -37,13 +37,11 @@
   line-height: 1.02;
 }
 
-.operator-eyebrow {
-  margin: 0 0 10px;
+.operator-kicker {
+  margin: 0 0 8px;
   color: #52733f;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .operator-muted {
@@ -308,9 +306,8 @@
 
 .operator-panel th {
   color: #687368;
-  font-size: 11px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .operator-panel tbody tr:last-child td {
@@ -419,10 +416,8 @@
 .operator-report dt {
   margin-bottom: 7px;
   color: #6a7569;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .operator-report dd {

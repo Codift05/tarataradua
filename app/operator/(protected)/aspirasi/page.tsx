@@ -35,7 +35,7 @@ export default async function ComplaintsPage({ searchParams }: { searchParams: P
   return (
     <>
       <div className="operator-title-row">
-        <div><p className="operator-eyebrow">Layanan warga</p><h1>Aspirasi masuk</h1><p className="operator-muted">Kelola laporan warga dan perbarui progres penanganannya.</p></div>
+        <div><h1>Aspirasi masuk</h1><p className="operator-muted">Kelola laporan warga dan perbarui progres penanganannya.</p></div>
         <span className="operator-total">{Object.values(counts).reduce((sum, count) => sum + count, 0)} laporan</span>
       </div>
 

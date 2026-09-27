@@ -76,7 +76,6 @@ export default async function Home() {
       <main>
         <section className="hero shell" id="beranda">
           <div className="hero-copy">
-            <p className="eyebrow">Portal resmi kelurahan</p>
             <h1>Informasi dan layanan <span>Taratara II</span></h1>
             <p className="hero-lead">Persyaratan layanan, pengumuman, UMKM, dan aspirasi dalam satu portal.</p>
             <div className="actions">

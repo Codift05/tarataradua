@@ -28,7 +28,7 @@ export default async function ComplaintDetailPage({ params, searchParams }: { pa
     <>
       <Link className="operator-back-link" href="/operator/aspirasi">← Kembali ke daftar</Link>
       <div className="operator-title-row operator-detail-title">
-        <div><p className="operator-eyebrow">{complaint.ticket_number}</p><h1>{complaint.category}</h1><p className="operator-muted">Dikirim {date(complaint.created_at)}</p></div>
+        <div><p className="operator-kicker">{complaint.ticket_number}</p><h1>{complaint.category}</h1><p className="operator-muted">Dikirim {date(complaint.created_at)}</p></div>
         <span className={`operator-badge status-${complaint.status.toLowerCase()}`}>{complaint.status}</span>
       </div>
       {query.updated && <p className="operator-success" role="status">Status berhasil diperbarui.</p>}

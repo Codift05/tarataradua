@@ -13,7 +13,6 @@ export default async function OperatorLoginPage() {
     <main className="operator-login-page">
       <section className="operator-login-card">
         <Image src="/logo-kkt-taratara-ii.png" alt="Logo KKT Taratara II" width={72} height={72} priority />
-        <p className="operator-eyebrow">Portal internal kelurahan</p>
         <h1>Login operator</h1>
         <p className="operator-muted">Gunakan akun pribadi yang telah diaktifkan oleh administrator.</p>
         <LoginForm />
