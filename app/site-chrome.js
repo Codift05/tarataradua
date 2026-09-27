@@ -2,7 +2,7 @@ import Image from "next/image";
 
 // Absolute anchors keep the navigation working from /potensi/* as well as the home page.
 const links = [
-  ["/#profil", "Profil"],
+  ["/profil", "Profil"],
   ["/#potensi", "Potensi"],
   ["/#peta", "Peta"],
   ["/#umkm", "UMKM"],

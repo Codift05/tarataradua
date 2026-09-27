@@ -30,12 +30,12 @@ const sampleBusinesses = [
 
 // Figures not yet confirmed by the kelurahan stay marked as pending.
 const profileFacts = [
-  ["Wilayah", "Kecamatan Tomohon Barat, Kota Tomohon"],
-  ["Provinsi", "Sulawesi Utara"],
-  ["Kode pos", "95423"],
-  ["Bertetangga dengan", "Taratara I dan Taratara III"],
-  ["Mata pencaharian utama", "Pertanian padi, budidaya ikan, perkebunan kelapa, peternakan"],
-  ["Luas wilayah dan penduduk", "Menunggu data kelurahan"],
+  ["Kecamatan", "Tomohon Barat"],
+  ["Kota", "Tomohon, Sulawesi Utara"],
+  ["Lurah", "Jan Petrus Wilar, SP"],
+  ["Wilayah", "8 lingkungan"],
+  ["Sawah beririgasi", "75 hektare"],
+  ["Kode pos", "95424"],
 ];
 
 const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
@@ -99,7 +99,8 @@ export default async function Home() {
             <h2>Mengenal Taratara&nbsp;II</h2>
             <p>Taratara II adalah kelurahan di Kecamatan Tomohon Barat, Kota Tomohon, Sulawesi Utara. Permukimannya berada di lembah sisi barat kota, bertetangga dengan Taratara I dan Taratara III, dikelilingi sawah, kolam ikan, dan kebun kelapa.</p>
             <p>Kehidupan warga bertumpu pada tanah dan air. Saluran irigasi dari kawasan pegunungan mengairi sawah dan kolam, sementara kebun kelapa dan ternak melengkapi penghasilan keluarga. Seperti daerah Minahasa lainnya, semangat mapalus atau gotong royong masih terasa dalam keseharian warga.</p>
-            <a className="profile-link" href="#peta">Lihat lokasi di peta →</a>
+            <a className="profile-link" href="/profil">Baca profil lengkap →</a>
+            <a className="profile-link profile-home-link" href="#peta">Lihat peta →</a>
           </div>
           <dl className="profile-facts">
             {profileFacts.map(([label, value]) => (

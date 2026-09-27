@@ -67,6 +67,7 @@ npm run build
 ## Route Utama
 
 - `/` — portal publik;
+- `/profil` — profil lengkap: sejarah, pemerintahan, bentang alam, kehidupan warga, dan sumber data;
 - `/potensi/[slug]` — detail potensi (padi, perikanan, kelapa, peternakan, irigasi);
 - `/api/aspirasi` — penerimaan aspirasi tervalidasi;
 - `/operator/login` — autentikasi operator;
@@ -77,6 +78,10 @@ npm run build
 ## Deploy ke Vercel
 
 Hubungkan repository ke Vercel, tambahkan environment yang sama, lalu deploy. Simpan service-role sebagai Secret Production server-only. Gunakan akun organisasi atau akun kelurahan agar serah terima tidak bergantung pada akun pribadi mahasiswa.
+
+## Sumber Data Profil
+
+Isi `lib/profile.js` dikutip dari BPS Kota Tomohon (Statistik Daerah Kecamatan Tomohon Barat 2016, data 2015), situs resmi Kecamatan Tomohon Barat, dan tulisan sejarah Adrianus Kojongian. Setiap fakta menyimpan kunci sumbernya dan ditampilkan sebagai catatan kaki. Perbarui angka ketika kelurahan memberikan data yang lebih baru, dan pindahkan butir dari daftar `pending` setelah datanya tersedia.
 
 ## Data yang Masih Contoh
 
