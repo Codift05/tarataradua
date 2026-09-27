@@ -482,13 +482,129 @@
   border: 0;
 }
 
+.operator-link-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  text-decoration: none;
+}
+
+.operator-content-panel {
+  padding: 28px;
+}
+
+.operator-content-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.operator-content-form .full {
+  grid-column: 1 / -1;
+}
+
+.operator-field textarea,
+.operator-field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8e0d3;
+  border-radius: 12px;
+  outline: 0;
+  background: #fbfcfa;
+  color: #172117;
+  font: inherit;
+}
+
+.operator-field select {
+  min-height: 48px;
+}
+
+.operator-field textarea {
+  resize: vertical;
+}
+
+.operator-field textarea:focus,
+.operator-field select:focus {
+  border-color: #527c3e;
+  box-shadow: 0 0 0 4px rgba(82, 124, 62, .14);
+}
+
+.operator-field [aria-invalid="true"] {
+  border-color: #c45050;
+}
+
+.operator-field small {
+  display: block;
+  margin-top: 6px;
+  color: #687368;
+  font-size: 12px;
+}
+
+.operator-field small.operator-field-error {
+  color: #8b2424;
+  font-weight: 700;
+}
+
+.operator-check label {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.operator-check input {
+  width: 20px;
+  min-height: 20px;
+  padding: 0;
+  accent-color: #315a34;
+}
+
+.operator-delete-form {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #edf1ea;
+}
+
+.operator-delete-form button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #efc9c9;
+  border-radius: 10px;
+  background: #fff;
+  color: #8b2424;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.status-draft { background: #eef2ea; color: #465246; }
+.status-terbit { background: #dff0dc; color: #2f6231; }
+.status-arsip { background: #ecebe7; color: #5d5a52; }
+
 @media (max-width: 820px) {
   .operator-header {
     width: calc(100% - 20px);
   }
 
+  .operator-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .operator-header nav {
+    width: 100%;
+    overflow-x: auto;
+  }
+
   .operator-header nav a {
-    display: none;
+    flex: none;
+  }
+
+  .operator-content-form {
+    grid-template-columns: 1fr;
   }
 
   .operator-main {
