@@ -39,7 +39,8 @@ body {
 
 .brand-mark {
   width: 48px;
-  height: 48px;
+  height: auto;
+  border-radius: 0;
   background: transparent;
 }
 
@@ -51,7 +52,17 @@ body {
 
 .footer-brand .brand-mark {
   width: 56px;
-  height: 56px;
+  height: auto;
+}
+
+.footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-credit img {
+  border-radius: 50%;
 }
 
 .desktop-nav {

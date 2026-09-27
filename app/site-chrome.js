@@ -15,8 +15,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <a className="brand" href="/" aria-label="Portal Taratara II, kembali ke beranda">
-        <Image className="brand-mark" src="/logo-kkt-taratara-ii.png" alt="" width={48} height={48} priority />
-        <span><strong>Kelurahan Taratara II</strong><small>Kecamatan Tomohon Barat</small></span>
+        <Image className="brand-mark" src="/logo-kota-tomohon.png" alt="" width={48} height={46} priority />
+        <span><strong>Kelurahan Taratara II</strong><small>Kota Tomohon</small></span>
       </a>
       <nav className="desktop-nav" aria-label="Navigasi utama">
         {links.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
@@ -36,7 +36,7 @@ export function SiteFooter() {
     <footer id="kontak">
       <div className="shell footer-grid">
         <div className="footer-brand">
-          <Image className="brand-mark" src="/logo-kkt-taratara-ii.png" alt="" width={56} height={56} />
+          <Image className="brand-mark" src="/logo-kota-tomohon.png" alt="Lambang Kota Tomohon" width={56} height={54} />
           <div>
             <strong>Kelurahan Taratara II</strong>
             <p>Kecamatan Tomohon Barat, Kota Tomohon, Sulawesi Utara</p>
@@ -52,7 +52,10 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>Portal Informasi Kelurahan Taratara II</span>
+        <span className="footer-credit">
+          <Image src="/logo-kkt-taratara-ii.png" alt="" width={28} height={28} />
+          Dikembangkan bersama Tim KKT Taratara II
+        </span>
         <a href="#top">Kembali ke atas</a>
       </div>
     </footer>

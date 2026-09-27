@@ -10,7 +10,7 @@ export default async function OperatorLayout({ children }: Readonly<{ children: 
     <div className="operator-app">
       <header className="operator-header">
         <Link className="operator-brand" href="/operator/aspirasi">
-          <Image src="/logo-kkt-taratara-ii.png" alt="" width={48} height={48} />
+          <Image src="/logo-kota-tomohon.png" alt="" width={48} height={46} />
           <span><strong>Operator Taratara II</strong><small>{operator.name}</small></span>
         </Link>
         <nav aria-label="Navigasi operator">

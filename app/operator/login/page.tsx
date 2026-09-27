@@ -16,7 +16,7 @@ export default async function OperatorLoginPage() {
         <p>Kelurahan Taratara II<span>Kecamatan Tomohon Barat</span></p>
       </div>
       <section className="operator-login-card">
-        <Image src="/logo-kkt-taratara-ii.png" alt="Logo Kelurahan Taratara II" width={56} height={56} priority />
+        <Image src="/logo-kota-tomohon.png" alt="Lambang Kota Tomohon" width={56} height={54} priority />
         <h1>Masuk ke dashboard</h1>
         <p className="operator-muted">Khusus operator kelurahan. Akun dibuat oleh administrator.</p>
         <LoginForm />
