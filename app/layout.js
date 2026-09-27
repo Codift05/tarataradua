@@ -8,7 +8,18 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
+  || "http://localhost:3000";
+
 export const metadata = {
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    siteName: "Portal Kelurahan Taratara II",
+    locale: "id_ID",
+    type: "website",
+    images: ["/taratara-hero-v3.webp"],
+  },
   title: {
     default: "Portal Kelurahan Taratara II",
     template: "%s | Taratara II",

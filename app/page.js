@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ComplaintForm from "./complaint-form";
 import PotentialExplorer from "./potential-explorer";
+import { SiteFooter, SiteHeader } from "./site-chrome";
 import { splitLines } from "@/lib/content";
 import { getPublicContent } from "@/lib/public-content";
 
@@ -42,29 +43,7 @@ export default async function Home() {
 
   return (
     <>
-      <header className="site-header">
-        <a className="brand" href="#beranda" aria-label="Portal Taratara II, kembali ke beranda">
-          <Image className="brand-mark" src="/logo-kkt-taratara-ii.png" alt="" width={48} height={48} priority />
-          <span><strong>Kelurahan Taratara II</strong><small>Kecamatan Tomohon Barat</small></span>
-        </a>
-        <nav className="desktop-nav" aria-label="Navigasi utama">
-          <a href="#pelayanan">Pelayanan</a>
-          <a href="#potensi">Potensi</a>
-          <a href="#umkm">UMKM</a>
-          <a href="#informasi">Informasi</a>
-          <a href="#aspirasi">Aspirasi</a>
-        </nav>
-        <details className="mobile-nav">
-          <summary>Menu</summary>
-          <nav aria-label="Navigasi ponsel">
-            <a href="#pelayanan">Pelayanan</a>
-            <a href="#potensi">Potensi</a>
-            <a href="#umkm">UMKM</a>
-            <a href="#informasi">Informasi</a>
-            <a href="#aspirasi">Aspirasi</a>
-          </nav>
-        </details>
-      </header>
+      <SiteHeader />
 
       {usesSamples && (
         <aside className="prototype-notice">
@@ -207,29 +186,7 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer id="kontak">
-        <div className="shell footer-grid">
-          <div className="footer-brand">
-            <Image className="brand-mark" src="/logo-kkt-taratara-ii.png" alt="" width={56} height={56} />
-            <div>
-              <strong>Kelurahan Taratara II</strong>
-              <p>Kecamatan Tomohon Barat, Kota Tomohon, Sulawesi Utara</p>
-            </div>
-          </div>
-          <div>
-            <strong>Jam pelayanan</strong>
-            <p>Senin-Jumat, mengikuti jam kerja pemerintah daerah</p>
-          </div>
-          <div>
-            <strong>Kontak</strong>
-            <p>Nomor resmi akan ditambahkan setelah verifikasi kelurahan.</p>
-          </div>
-        </div>
-        <div className="shell footer-bottom">
-          <span>Portal Informasi Kelurahan Taratara II</span>
-          <a href="#beranda">Kembali ke atas</a>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

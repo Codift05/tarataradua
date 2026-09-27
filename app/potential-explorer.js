@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { cycle, potentials } from "@/lib/potentials";
 
@@ -100,6 +101,7 @@ export default function PotentialExplorer() {
             </div>
           </dl>
           <div className="potential-links">
+            <Link href={`/potensi/${item.slug}`}>Selengkapnya tentang {item.title.toLowerCase()} →</Link>
             {item.cta && <a href={item.cta.href}>{item.cta.label} →</a>}
           </div>
           <p className="potential-note">Luas lahan, kelompok, dan jumlah pelaku menunggu pendataan bersama kelurahan.</p>
