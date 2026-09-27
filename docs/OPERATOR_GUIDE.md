@@ -6,6 +6,16 @@ Dashboard tersedia di `/operator/login`. Setiap operator memakai akun Supabase A
 
 ## Menyiapkan Operator Pertama
 
+Cara tercepat dari komputer yang memiliki `.env.local`:
+
+```bash
+npm run operator:create -- operator@example.com "Nama Operator" admin
+```
+
+Script membuat akun Supabase Auth yang sudah terkonfirmasi, mengaktifkan profil operator, lalu menampilkan password sementara satu kali. Isi `OPERATOR_PASSWORD` jika ingin menentukan password sendiri. Menjalankan ulang untuk email yang sama akan mengganti password dan mengaktifkan kembali profilnya.
+
+Cara manual melalui Supabase Dashboard:
+
 1. Buka Supabase Dashboard → Authentication → Users.
 2. Tambahkan pengguna menggunakan email pribadi operator dan password sementara yang kuat.
 3. Aktifkan konfirmasi email ketika akun dibuat langsung oleh administrator.
@@ -36,6 +46,16 @@ Ganti nama dan email sebelum menjalankan query. Gunakan role `operator` untuk pe
 7. Keluar setelah selesai memakai perangkat bersama.
 
 Setiap perubahan status dicatat otomatis di `complaint_events`. Riwayat ini tidak dapat diubah melalui dashboard.
+
+## Mengelola Konten Portal
+
+Menu **Pengumuman**, **Layanan**, dan **UMKM** memakai alur yang sama: buka menu, tekan **Tambah**, isi form, lalu **Simpan**. Pilih **Ubah** pada daftar untuk memperbarui data. Beranda diperbarui otomatis setelah penyimpanan.
+
+- **Pengumuman**: simpan sebagai `Draft` untuk menyiapkan teks, ubah ke `Terbit` agar tampil, dan `Arsip` untuk menurunkannya tanpa menghapus. Beranda menampilkan tiga pengumuman terbit terbaru.
+- **Layanan**: tulis satu persyaratan atau satu langkah per baris. Angka **Urutan tampil** yang lebih kecil muncul lebih dulu.
+- **UMKM**: cantumkan nomor WhatsApp hanya dengan persetujuan pemilik usaha. Hapus centang **Tampilkan di portal** untuk menyembunyikan usaha tanpa menghapusnya. Beranda menampilkan enam UMKM aktif terbaru.
+
+Gunakan **Hapus** hanya untuk data yang salah input; penghapusan tidak dapat dibatalkan.
 
 ## Menonaktifkan Akses
 

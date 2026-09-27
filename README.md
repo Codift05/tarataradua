@@ -45,9 +45,14 @@ Jalankan skema dasar lalu migration operator:
 ```bash
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/2026092601_operator_backend.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/2026092602_content_management.sql
 ```
 
-Migration menambahkan profil operator, policy RLS, izin update kolom status, dan audit log perubahan status. Cara membuat operator pertama dijelaskan dalam [Panduan Operator](./docs/OPERATOR_GUIDE.md).
+Migration pertama menambahkan profil operator, policy RLS, izin update kolom status, dan audit log perubahan status. Migration kedua menambahkan tabel `announcements`, `services`, dan `businesses`: publik hanya membaca pengumuman berstatus `Terbit` serta layanan/UMKM yang aktif, sedangkan operator aktif dapat mengelola semuanya. Selama tabel konten kosong atau belum tersedia, beranda menampilkan data contoh beserta label pratinjau. Cara membuat operator pertama dijelaskan dalam [Panduan Operator](./docs/OPERATOR_GUIDE.md).
+
+## Peta
+
+Peta beranda memakai Leaflet dan tile OpenStreetMap tanpa API key. Titik lokasi ada di `lib/map-places.js` dan berasal dari data OpenStreetMap. Tambahkan koordinat sawah, kolam ikan, dan kebun kelapa dengan kategori `potensi` setelah survei lapangan (koordinat dapat diambil dari Google Maps: tekan lama pada lokasi, lalu salin angka lintang dan bujurnya).
 
 ## Pemeriksaan
 
@@ -62,10 +67,12 @@ npm run build
 ## Route Utama
 
 - `/` — portal publik;
+- `/potensi/[slug]` — detail potensi (padi, perikanan, kelapa, peternakan, irigasi);
 - `/api/aspirasi` — penerimaan aspirasi tervalidasi;
 - `/operator/login` — autentikasi operator;
 - `/operator/aspirasi` — daftar dan filter laporan;
-- `/operator/aspirasi/[id]` — detail, status, dan audit log.
+- `/operator/aspirasi/[id]` — detail, status, dan audit log;
+- `/operator/pengumuman`, `/operator/layanan`, `/operator/umkm` — kelola konten portal.
 
 ## Deploy ke Vercel
 

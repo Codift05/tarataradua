@@ -121,6 +121,22 @@ Tabel aspirasi tetap tertutup untuk publik. Operator terautentikasi hanya mendap
 - test dan `next build` lulus;
 - tidak ada secret yang masuk Git.
 
-## 8. Lanjutan Setelah Iterasi Ini
+## 8. Iterasi Konten Portal
 
-Urutan berikutnya adalah CRUD pengumuman, layanan, dan UMKM; pembacaan konten nyata pada halaman publik; Storage untuk media; lalu deployment produksi, analytics, backup, dan panduan serah terima.
+- [x] Tabel `announcements`, `services`, dan `businesses` dengan RLS publik terbatas dan akses penuh operator aktif.
+- [x] Dashboard operator untuk tambah, ubah, sembunyikan/arsipkan, dan hapus konten.
+- [x] Beranda membaca konten nyata dengan fallback data contoh ketika tabel kosong atau tidak tersedia.
+- [ ] Terapkan `2026092602_content_management.sql` ke Supabase dan jalankan `npm run test:integration`.
+
+## 9. Iterasi Potensi dan Peta
+
+- [x] Tambah potensi budidaya ikan mujair.
+- [x] Halaman detail `/potensi/[slug]` dengan UMKM terkait dan metadata pratinjau tautan.
+- [x] Peta OpenStreetMap dengan titik wilayah dan fasilitas umum.
+- [x] Script `npm run operator:create` untuk akun operator.
+- [ ] Survei lapangan: koordinat sawah, kolam ikan, kebun kelapa, dan kantor kelurahan.
+- [ ] Foto dokumentasi asli untuk setiap potensi.
+
+## 10. Lanjutan Setelah Iterasi Ini
+
+Storage untuk media; profil kelurahan dan kontak resmi; lalu deployment produksi, analytics, backup, dan panduan serah terima.
