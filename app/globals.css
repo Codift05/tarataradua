@@ -169,7 +169,7 @@ h1 {
   box-shadow: 0 22px 60px color-mix(in srgb, var(--accent) 17%, transparent);
 }
 
-.hero-image img, .potential-photo img, .business-image img { object-fit: cover; }
+.hero-image img, .business-image img { object-fit: cover; }
 
 .quick-access {
   display: grid;
@@ -211,15 +211,7 @@ h2 { margin-bottom: 16px; font-size: clamp(32px, 4vw, 50px); line-height: 1.12; 
 .service-list p { margin-bottom: 0; color: var(--muted); }
 .service-list a { color: var(--accent); font-weight: 750; text-underline-offset: 4px; white-space: nowrap; }
 
-.potential {
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 56px;
-  align-items: center;
-}
-.potential-photo, .business-image { position: relative; min-height: 520px; overflow: hidden; border-radius: var(--radius); }
-.potential-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 34px; }
-.potential-items span { padding: 16px; border-radius: var(--radius); background: var(--accent-soft); font-weight: 750; }
+.business-image { position: relative; min-height: 520px; overflow: hidden; border-radius: var(--radius); }
 
 .announcement-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
 .announcement-grid article {
@@ -309,8 +301,8 @@ footer { padding: 60px 0 24px; border-top: 1px solid var(--line); background: va
   .quick-access a:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
   .quick-access a:nth-child(4) { border-top: 1px solid var(--line); }
   .section { padding-block: 72px; }
-  .potential, .business, .complaint { grid-template-columns: 1fr; gap: 38px; }
-  .potential-photo, .business-image { min-height: 70vw; }
+  .business, .complaint { grid-template-columns: 1fr; gap: 38px; }
+  .business-image { min-height: 70vw; }
   .business-image { order: 2; }
   .announcement-grid { grid-template-columns: 1fr; }
   .announcement-grid article.featured { grid-row: auto; min-height: 300px; }
@@ -326,7 +318,7 @@ footer { padding: 60px 0 24px; border-top: 1px solid var(--line); background: va
   .quick-access { grid-template-columns: 1fr; }
   .quick-access a + a { border-left: 0; border-top: 1px solid var(--line); }
   .service-list article { grid-template-columns: 1fr; gap: 10px; }
-  .potential-items, .form-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
   .complaint-form { padding: 20px; }
   .footer-bottom { gap: 20px; flex-direction: column; }
 }

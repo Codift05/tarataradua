@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ComplaintForm from "./complaint-form";
+import PotentialExplorer from "./potential-explorer";
 import { splitLines } from "@/lib/content";
 import { getPublicContent } from "@/lib/public-content";
 
@@ -102,7 +103,7 @@ export default async function Home() {
           <a href="#aspirasi"><span>Sampaikan laporan</span><strong>Aspirasi</strong></a>
         </section>
 
-        <section className="section shell" id="pelayanan">
+        <section className="section shell reveal" id="pelayanan">
           <div className="section-heading">
             <h2>Pelayanan yang mudah dipahami</h2>
             <p>Pilih layanan untuk melihat dokumen yang perlu disiapkan sebelum datang ke kantor kelurahan.</p>
@@ -133,28 +134,15 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="section potential shell" id="potensi">
-          <div className="potential-photo">
-            <Image
-              src="/padi-irigasi.webp"
-              alt="Ilustrasi tanaman padi yang tumbuh di samping saluran irigasi"
-              fill
-              sizes="(max-width: 800px) 100vw, 50vw"
-            />
+        <section className="section shell reveal" id="potensi">
+          <div className="section-heading">
+            <h2>Potensi utama Taratara&nbsp;II</h2>
+            <p>Pertanian padi, perkebunan kelapa, peternakan, dan irigasi menjadi bagian penting kehidupan warga. Pilih salah satu untuk melihat detailnya.</p>
           </div>
-          <div className="potential-copy">
-            <h2>Potensi utama Taratara II</h2>
-            <p>Pertanian padi, perkebunan kelapa, peternakan, dan irigasi menjadi bagian penting kehidupan warga.</p>
-            <div className="potential-items">
-              <span>Pertanian padi</span>
-              <span>Perkebunan kelapa</span>
-              <span>Peternakan</span>
-              <span>Jalur irigasi</span>
-            </div>
-          </div>
+          <PotentialExplorer />
         </section>
 
-        <section className="section shell" id="informasi">
+        <section className="section shell reveal" id="informasi">
           <div className="section-heading compact">
             <h2>Informasi terbaru</h2>
             <p>Pengumuman penting untuk pelayanan dan kegiatan masyarakat.</p>
@@ -180,7 +168,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="section business shell" id="umkm">
+        <section className="section business shell reveal" id="umkm">
           <div className="business-image">
             <Image
               src="/produk-umkm.webp"
@@ -207,7 +195,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="section complaint shell" id="aspirasi">
+        <section className="section complaint shell reveal" id="aspirasi">
           <div className="complaint-intro">
             <h2>Sampaikan aspirasi dengan jelas</h2>
             <p>Laporkan kondisi fasilitas publik atau lingkungan. Operator kelurahan akan menerima laporan untuk ditindaklanjuti.</p>
