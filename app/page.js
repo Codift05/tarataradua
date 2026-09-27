@@ -1,20 +1,24 @@
 import Image from "next/image";
 import ComplaintForm from "./complaint-form";
+import { splitLines } from "@/lib/content";
+import { getPublicContent } from "@/lib/public-content";
 
-const services = [
-  { name: "Surat Keterangan Domisili", detail: "Persyaratan identitas dan pengantar lingkungan." },
-  { name: "Surat Keterangan Usaha", detail: "Informasi dokumen untuk kebutuhan usaha warga." },
-  { name: "Surat Keterangan Tidak Mampu", detail: "Panduan pengajuan dan verifikasi kelurahan." },
-  { name: "Surat Kelahiran dan Kematian", detail: "Dokumen pendukung dan alur pelaporan peristiwa." },
+export const revalidate = 300;
+
+const sampleServices = [
+  { name: "Surat Keterangan Domisili", description: "Persyaratan identitas dan pengantar lingkungan." },
+  { name: "Surat Keterangan Usaha", description: "Informasi dokumen untuk kebutuhan usaha warga." },
+  { name: "Surat Keterangan Tidak Mampu", description: "Panduan pengajuan dan verifikasi kelurahan." },
+  { name: "Surat Kelahiran dan Kematian", description: "Dokumen pendukung dan alur pelaporan peristiwa." },
 ];
 
-const announcements = [
-  { date: "Menunggu verifikasi", title: "Jadwal pelayanan kantor kelurahan", type: "Pelayanan" },
-  { date: "Menunggu verifikasi", title: "Kerja bakti kebersihan lingkungan", type: "Kegiatan" },
-  { date: "Menunggu verifikasi", title: "Pendataan UMKM Taratara II", type: "Pengumuman" },
+const sampleAnnouncements = [
+  { title: "Jadwal pelayanan kantor kelurahan", category: "Pelayanan" },
+  { title: "Kerja bakti kebersihan lingkungan", category: "Kegiatan" },
+  { title: "Pendataan UMKM Taratara II", category: "Pengumuman" },
 ];
 
-const businesses = [
+const sampleBusinesses = [
   { name: "Produk olahan kelapa", category: "Contoh kategori", description: "Nama usaha akan ditambahkan setelah pendataan warga." },
   { name: "Hasil pertanian", category: "Contoh kategori", description: "Produk dan kontak akan ditambahkan setelah verifikasi." },
   { name: "Kuliner rumahan", category: "Contoh kategori", description: "Direktori akan diisi bersama pelaku UMKM setempat." },
@@ -25,7 +29,16 @@ const contactHref = whatsapp
   ? `https://wa.me/${whatsapp}?text=${encodeURIComponent("Halo, saya ingin menanyakan pelayanan Kelurahan Taratara II.")}`
   : "#kontak";
 
-export default function Home() {
+const formatDate = (value) => new Intl.DateTimeFormat("id-ID", { dateStyle: "long", timeZone: "Asia/Makassar" }).format(new Date(value));
+const waLink = (number, text) => `https://wa.me/${number.replace(/^0/, "62").replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+
+export default async function Home() {
+  const content = await getPublicContent();
+  const services = content.services?.length ? content.services : sampleServices;
+  const announcements = content.announcements?.length ? content.announcements : null;
+  const businesses = content.businesses?.length ? content.businesses : sampleBusinesses;
+  const usesSamples = services === sampleServices || !announcements || businesses === sampleBusinesses;
+
   return (
     <>
       <header className="site-header">
@@ -52,11 +65,13 @@ export default function Home() {
         </details>
       </header>
 
-      <aside className="prototype-notice">
-        <div className="shell">
-          <strong>Pratinjau KKT.</strong> Informasi layanan, pengumuman, UMKM, dan kontak masih menunggu verifikasi kelurahan.
-        </div>
-      </aside>
+      {usesSamples && (
+        <aside className="prototype-notice">
+          <div className="shell">
+            <strong>Pratinjau KKT.</strong> Sebagian informasi layanan, pengumuman, UMKM, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.
+          </div>
+        </aside>
+      )}
 
       <main>
         <section className="hero shell" id="beranda">
@@ -95,10 +110,23 @@ export default function Home() {
           </div>
           <div className="service-list">
             {services.map((service) => (
-              <article key={service.name}>
+              <article key={service.id || service.name}>
                 <div>
                   <h3>{service.name}</h3>
-                  <p>{service.detail}</p>
+                  <p>{service.description}</p>
+                  {(service.requirements || service.steps || service.duration || service.fee) && (
+                    <details className="service-detail">
+                      <summary>Lihat persyaratan dan alur</summary>
+                      {service.requirements && <><h4>Persyaratan</h4><ul>{splitLines(service.requirements).map((line) => <li key={line}>{line}</li>)}</ul></>}
+                      {service.steps && <><h4>Alur</h4><ol>{splitLines(service.steps).map((line) => <li key={line}>{line}</li>)}</ol></>}
+                      {(service.duration || service.fee) && (
+                        <p className="service-meta">
+                          {service.duration && <span>Estimasi: {service.duration}</span>}
+                          {service.fee && <span>Biaya: {service.fee}</span>}
+                        </p>
+                      )}
+                    </details>
+                  )}
                 </div>
                 <a href={contactHref} aria-label={`Tanyakan ${service.name}`}>Tanya petugas</a>
               </article>
@@ -133,11 +161,20 @@ export default function Home() {
             <p>Pengumuman penting untuk pelayanan dan kegiatan masyarakat.</p>
           </div>
           <div className="announcement-grid">
-            {announcements.map((item, index) => (
-              <article className={index === 0 ? "featured" : ""} key={item.title}>
-                <span>{item.type}</span>
+            {announcements ? announcements.map((item, index) => (
+              <article className={index === 0 ? "featured" : ""} key={item.id}>
+                <span>{item.category}</span>
                 <h3>{item.title}</h3>
-                <p className="announcement-status">{item.date}</p>
+                <p className="announcement-status">{item.summary}</p>
+                <span className="verification-note">
+                  {item.event_date ? `Tanggal kegiatan ${formatDate(item.event_date)}` : `Diterbitkan ${formatDate(item.published_at)}`}
+                </span>
+              </article>
+            )) : sampleAnnouncements.map((item, index) => (
+              <article className={index === 0 ? "featured" : ""} key={item.title}>
+                <span>{item.category}</span>
+                <h3>{item.title}</h3>
+                <p className="announcement-status">Menunggu verifikasi</p>
                 <span className="verification-note">Detail setelah verifikasi</span>
               </article>
             ))}
@@ -158,10 +195,13 @@ export default function Home() {
             <p>Kenali produk dan usaha warga Taratara II.</p>
             <div className="business-list">
               {businesses.map((business) => (
-                <article key={business.name}>
+                <article key={business.id || business.name}>
                   <span>{business.category}</span>
                   <h3>{business.name}</h3>
-                  <p>{business.description}</p>
+                  <p>{business.product ? `${business.product}. ` : ""}{business.description}</p>
+                  {business.whatsapp && (
+                    <a href={waLink(business.whatsapp, `Halo, saya melihat ${business.name} di portal Taratara II.`)}>Hubungi via WhatsApp</a>
+                  )}
                 </article>
               ))}
             </div>

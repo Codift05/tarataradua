@@ -255,6 +255,12 @@ h2 { margin-bottom: 16px; font-size: clamp(32px, 4vw, 50px); line-height: 1.12; 
 .business-list span { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 .business-list h3 { margin: 6px 0 3px; font-size: 20px; }
 .business-list p { margin-bottom: 0; color: var(--muted); }
+.business-list a { display: inline-block; margin-top: 8px; color: var(--accent); font-weight: 750; text-underline-offset: 4px; }
+.service-detail { margin-top: 12px; }
+.service-detail summary { color: var(--accent); font-weight: 750; cursor: pointer; }
+.service-detail h4 { margin: 14px 0 6px; font-size: 15px; }
+.service-detail ul, .service-detail ol { margin: 0; padding-left: 20px; color: var(--muted); }
+.service-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 14px; }
 
 .complaint {
   display: grid;
