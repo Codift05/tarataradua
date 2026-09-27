@@ -4,6 +4,8 @@
 
 Dashboard tersedia di `/operator/login`. Setiap operator memakai akun Supabase Auth pribadi dan harus memiliki profil aktif pada `public.operator_profiles`.
 
+Alamat login sengaja tidak ditautkan dari portal publik dan ditandai `noindex` agar tidak muncul di mesin pencari. Bagikan alamatnya hanya kepada operator. Tidak ada pendaftaran mandiri; akun yang tidak memiliki profil operator aktif akan ditolak, dan setelah 5 percobaan gagal dalam 15 menit dari alamat IP yang sama, login dikunci sementara.
+
 ## Menyiapkan Operator Pertama
 
 Cara tercepat dari komputer yang memiliki `.env.local`:
