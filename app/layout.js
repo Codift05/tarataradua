@@ -25,7 +25,7 @@ export const metadata = {
     template: "%s | Taratara II",
   },
   description:
-    "Informasi pelayanan, pengumuman, potensi wilayah, dan UMKM Kelurahan Taratara II.",
+    "Profil, potensi, peta, UMKM, dan layanan warga Kelurahan Taratara II, Tomohon Barat, Sulawesi Utara.",
 };
 
 export default function RootLayout({ children }) {
