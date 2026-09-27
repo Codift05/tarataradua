@@ -2,6 +2,8 @@ import Image from "next/image";
 import ComplaintForm from "./complaint-form";
 import PotentialExplorer from "./potential-explorer";
 import { SiteFooter, SiteHeader } from "./site-chrome";
+import VillageMap from "./village-map";
+import { googleMapsUrl } from "@/lib/map-places";
 import { splitLines } from "@/lib/content";
 import { getPublicContent } from "@/lib/public-content";
 
@@ -119,6 +121,15 @@ export default async function Home() {
             <p>Pertanian padi, perkebunan kelapa, peternakan, dan irigasi menjadi bagian penting kehidupan warga. Pilih salah satu untuk melihat detailnya.</p>
           </div>
           <PotentialExplorer />
+        </section>
+
+        <section className="section shell reveal" id="peta">
+          <div className="section-heading">
+            <h2>Lokasi Taratara&nbsp;II</h2>
+            <p>Taratara II berada di lembah sisi barat Kota Tomohon, berdampingan dengan Taratara I dan Taratara III. Titik sawah, kolam ikan, dan kebun kelapa akan ditambahkan setelah survei lapangan.</p>
+          </div>
+          <VillageMap />
+          <a className="map-link" href={googleMapsUrl} target="_blank" rel="noreferrer">Buka di Google Maps →</a>
         </section>
 
         <section className="section shell reveal" id="informasi">

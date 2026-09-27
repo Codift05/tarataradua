@@ -4,6 +4,7 @@ import Image from "next/image";
 const links = [
   ["/#pelayanan", "Pelayanan"],
   ["/#potensi", "Potensi"],
+  ["/#peta", "Peta"],
   ["/#umkm", "UMKM"],
   ["/#informasi", "Informasi"],
   ["/#aspirasi", "Aspirasi"],
