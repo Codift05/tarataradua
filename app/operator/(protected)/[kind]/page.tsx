@@ -10,7 +10,7 @@ function display(column: string, value: Row[string]) {
   if (column === "active") return <span className={`operator-badge ${value ? "status-selesai" : "status-baru"}`}>{value ? "Tampil" : "Disembunyikan"}</span>;
   if (column === "status") return <span className={`operator-badge status-${String(value).toLowerCase()}`}>{value}</span>;
   if (column === "event_date" && value) return new Intl.DateTimeFormat("id-ID", { dateStyle: "medium" }).format(new Date(String(value)));
-  return value || "—";
+  return value || "-";
 }
 
 export default async function ContentListPage({ params, searchParams }: { params: Promise<{ kind: string }>; searchParams: Promise<{ saved?: string; deleted?: string }> }) {
@@ -51,9 +51,9 @@ export default async function ContentListPage({ params, searchParams }: { params
               <thead><tr>{type.listColumns.map((column) => <th key={column}>{columnLabels[column] || labels[column]}</th>)}<th><span className="sr-only">Aksi</span></th></tr></thead>
               <tbody>{data.map((row) => (
                 <tr key={row.id}>
-                  <td><strong>{row[primary]}</strong></td>
-                  {rest.map((column) => <td key={column}>{display(column, row[column])}</td>)}
-                  <td><Link className="operator-detail-link" href={`/operator/${kind}/${row.id}`}>Ubah</Link></td>
+                  <td data-label={labels[primary]}><strong>{row[primary]}</strong></td>
+                  {rest.map((column) => <td key={column} data-label={columnLabels[column] || labels[column]}>{display(column, row[column])}</td>)}
+                  <td className="operator-row-action"><Link className="operator-detail-link" href={`/operator/${kind}/${row.id}`}>Ubah</Link></td>
                 </tr>
               ))}</tbody>
             </table>

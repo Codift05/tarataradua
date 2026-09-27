@@ -59,11 +59,11 @@ export default async function ComplaintsPage({ searchParams }: { searchParams: P
               <thead><tr><th>Tiket</th><th>Pelapor</th><th>Kategori</th><th>Lokasi</th><th>Waktu</th><th>Status</th><th><span className="sr-only">Aksi</span></th></tr></thead>
               <tbody>{listResult.data.map((item) => (
                 <tr key={item.id}>
-                  <td><strong>{item.ticket_number}</strong></td>
-                  <td>{item.name}<small>{item.environment}</small></td>
-                  <td>{item.category}</td><td>{item.location}</td><td>{formatDate(item.created_at)}</td>
-                  <td><span className={`operator-badge status-${item.status.toLowerCase()}`}>{item.status}</span></td>
-                  <td><Link className="operator-detail-link" href={`/operator/aspirasi/${item.id}`}>Buka</Link></td>
+                  <td data-label="Tiket"><strong>{item.ticket_number}</strong></td>
+                  <td data-label="Pelapor">{item.name}<small>{item.environment}</small></td>
+                  <td data-label="Kategori">{item.category}</td><td data-label="Lokasi">{item.location}</td><td data-label="Waktu">{formatDate(item.created_at)}</td>
+                  <td data-label="Status"><span className={`operator-badge status-${item.status.toLowerCase()}`}>{item.status}</span></td>
+                  <td className="operator-row-action"><Link className="operator-detail-link" href={`/operator/aspirasi/${item.id}`}>Buka</Link></td>
                 </tr>
               ))}</tbody>
             </table>

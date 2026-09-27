@@ -12,6 +12,7 @@
     "operator:create": "node --env-file=.env.local scripts/create-operator.mjs"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
     "leaflet": "^1.9.4",

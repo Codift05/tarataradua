@@ -476,6 +476,23 @@ footer .shell {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  /* reference-theme sets desktop grids after globals.css, so restate the mobile collapse here. */
+  .business,
+  .complaint {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .business-image {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .announcement-grid article,
+  .announcement-grid article.featured {
+    min-height: 0;
+  }
+
   footer {
     margin-top: 18px;
     padding: 52px 28px 24px;

@@ -681,11 +681,24 @@
   }
 
   .operator-stats {
-    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .operator-stats article {
-    min-height: 90px;
+    min-height: 0;
+    padding: 14px;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 2px;
+    border-radius: 14px;
+  }
+
+  .operator-stats strong {
+    font-size: 28px;
+  }
+
+  .operator-stats span {
+    font-size: 13px;
   }
 
   .operator-detail-grid {
@@ -716,6 +729,69 @@
 
   .operator-report dl div.full {
     grid-column: auto;
+  }
+}
+
+/* Tables become stacked cards on phones; each cell shows its column label. */
+@media (max-width: 640px) {
+  .operator-panel table,
+  .operator-panel tbody,
+  .operator-panel tr,
+  .operator-panel td {
+    display: block;
+    width: 100%;
+  }
+
+  .operator-panel thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .operator-panel tr {
+    padding: 14px 18px;
+    border-bottom: 1px solid #edf1ea;
+  }
+
+  .operator-panel tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .operator-panel td,
+  .operator-panel tbody tr:last-child td {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 12px;
+    padding: 5px 0;
+    border: 0;
+  }
+
+  .operator-panel td[data-label]::before {
+    color: #687368;
+    font-size: 12px;
+    font-weight: 700;
+    content: attr(data-label);
+  }
+
+  .operator-panel td .operator-badge {
+    justify-self: start;
+  }
+
+  .operator-panel td.operator-row-action {
+    display: block;
+    padding-top: 10px;
+  }
+
+  .operator-panel td.operator-row-action a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #edf3e8;
+    text-decoration: none;
   }
 }
 
