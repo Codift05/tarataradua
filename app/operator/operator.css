@@ -633,6 +633,34 @@
   cursor: pointer;
 }
 
+.operator-pagination {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  color: #647064;
+  font-size: 13px;
+  text-align: center;
+}
+
+.operator-pagination a {
+  justify-self: start;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #dfe6da;
+  border-radius: 10px;
+  background: #fff;
+  color: #35572d;
+  font-weight: 750;
+  line-height: 42px;
+  text-decoration: none;
+}
+
+.operator-pagination a[rel="next"] {
+  justify-self: end;
+}
+
 .status-draft { background: #eef2ea; color: #465246; }
 .status-terbit { background: #dff0dc; color: #2f6231; }
 .status-arsip { background: #ecebe7; color: #5d5a52; }
@@ -734,6 +762,15 @@
 
 /* Tables become stacked cards on phones; each cell shows its column label. */
 @media (max-width: 640px) {
+  .operator-pagination {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .operator-pagination > span:not([aria-hidden]) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
   .operator-panel table,
   .operator-panel tbody,
   .operator-panel tr,

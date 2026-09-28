@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireOperator } from "@/lib/operator";
+import { pageCount, pageRange, parsePage } from "@/lib/pagination";
+import Pagination from "../pagination";
 
 const statuses = ["Baru", "Diproses", "Selesai"] as const;
 type Status = typeof statuses[number];
@@ -11,17 +14,19 @@ function formatDate(value: string) {
 
 export const metadata = { title: "Aspirasi Warga" };
 
-export default async function ComplaintsPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
+export default async function ComplaintsPage({ searchParams }: { searchParams: Promise<{ status?: string; page?: string }> }) {
   await requireOperator();
   const params = await searchParams;
   const activeStatus = statuses.includes(params.status as Status) ? params.status as Status : null;
+  const page = parsePage(params.page);
+  const { from, to } = pageRange(page);
   const supabase = await createClient();
 
   let query = supabase
     .from("complaints")
-    .select("id, ticket_number, name, environment, category, location, status, created_at")
+    .select("id, ticket_number, name, environment, category, location, status, created_at", { count: "exact" })
     .order("created_at", { ascending: false })
-    .limit(100);
+    .range(from, to);
 
   if (activeStatus) query = query.eq("status", activeStatus);
 
@@ -30,6 +35,8 @@ export default async function ComplaintsPage({ searchParams }: { searchParams: P
     ...statuses.map((status) => supabase.from("complaints").select("id", { count: "exact", head: true }).eq("status", status)),
   ]);
 
+  if (listResult.error?.code === "PGRST103") redirect(activeStatus ? `/operator/aspirasi?status=${encodeURIComponent(activeStatus)}` : "/operator/aspirasi");
+  const total = listResult.count || 0;
   const counts = Object.fromEntries(statuses.map((status, index) => [status, countResults[index].count || 0]));
 
   return (
@@ -70,6 +77,7 @@ export default async function ComplaintsPage({ searchParams }: { searchParams: P
           </div>
         )}
       </section>
+      <Pagination page={page} pages={pageCount(total)} total={total} basePath="/operator/aspirasi" params={{ status: activeStatus || undefined }} />
     </>
   );
 }

@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { columnLabels, getContentType } from "@/lib/content";
 import { requireOperator } from "@/lib/operator";
 import { createClient } from "@/lib/supabase/server";
+import { pageCount, pageRange, parsePage } from "@/lib/pagination";
+import Pagination from "../pagination";
 
 type Row = Record<string, string | number | boolean | null> & { id: number };
 
@@ -13,21 +15,24 @@ function display(column: string, value: Row[string]) {
   return value || "-";
 }
 
-export default async function ContentListPage({ params, searchParams }: { params: Promise<{ kind: string }>; searchParams: Promise<{ saved?: string; deleted?: string }> }) {
+export default async function ContentListPage({ params, searchParams }: { params: Promise<{ kind: string }>; searchParams: Promise<{ saved?: string; deleted?: string; page?: string }> }) {
   await requireOperator();
   const { kind } = await params;
   const type = getContentType(kind);
   if (!type) notFound();
   const query = await searchParams;
 
+  const page = parsePage(query.page);
+  const { from, to } = pageRange(page);
   const supabase = await createClient();
-  const { data, error } = await supabase
+  const { data, error, count } = await supabase
     .from(type.table)
-    .select(["id", ...type.listColumns].join(", "))
+    .select(["id", ...type.listColumns].join(", "), { count: "exact" })
     .order(type.order.column, { ascending: type.order.ascending })
-    .limit(200)
+    .range(from, to)
     .returns<Row[]>();
 
+  if (error?.code === "PGRST103") redirect(`/operator/${kind}`);
   const labels = Object.fromEntries(type.fields.map((field) => [field.name, field.label]));
   const [primary, ...rest] = type.listColumns;
 
@@ -60,6 +65,7 @@ export default async function ContentListPage({ params, searchParams }: { params
           </div>
         )}
       </section>
+      <Pagination page={page} pages={pageCount(count)} total={count || 0} basePath={`/operator/${kind}`} />
     </>
   );
 }
