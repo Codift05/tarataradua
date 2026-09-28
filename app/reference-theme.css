@@ -13,6 +13,9 @@
   --highlight-hover: #cadd55;
   --on-accent: #f8fbf5;
   --on-highlight: #1d2b19;
+  /* Restated here: globals.css swaps these for dark-mode values, which were unreadable on this locked light theme. */
+  --success: #1f6b43;
+  --danger: #a52a2a;
   --radius: 20px;
 }
 
@@ -362,8 +365,7 @@ h2 {
 }
 
 .status-flow span {
-  min-height: 70px;
-  padding: 14px;
+  padding: 12px 14px;
   border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   border-left: 4px solid var(--accent);
   border-radius: 14px;
@@ -1275,6 +1277,40 @@ footer .shell {
     display: block;
     margin: 10px 0 0;
   }
+}
+
+/* Complaint result */
+
+.form-message {
+  margin-bottom: 14px;
+}
+
+.form-message.success {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid color-mix(in srgb, var(--success) 30%, transparent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.form-message.success strong {
+  color: var(--success);
+  font-size: 16px;
+}
+
+.ticket-number {
+  margin: 2px 0 4px;
+  color: var(--accent-strong);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  user-select: all;
+}
+
+.form-message.error {
+  border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+  background: #fff4f2;
 }
 
 /* Struktur organisasi */

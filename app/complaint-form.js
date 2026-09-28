@@ -103,9 +103,12 @@ export default function ComplaintForm() {
 
       {state.status === "error" && <p className="form-message error" role="alert">{state.message}</p>}
       {state.status === "success" && (
-        <p className="form-message success" role="status">
-          {state.message} <strong>{state.ticketNumber}</strong>
-        </p>
+        <div className="form-message success" role="status">
+          <strong>Aspirasi terkirim.</strong>
+          <span>Nomor tiket Anda:</span>
+          <span className="ticket-number">{state.ticketNumber}</span>
+          <span>Simpan nomor ini untuk menanyakan tindak lanjut ke kelurahan.</span>
+        </div>
       )}
 
       <button className="button primary submit" type="submit" disabled={state.status === "loading"}>
