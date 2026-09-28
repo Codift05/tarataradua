@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { gallery, PHOTO_CREDIT } from "@/lib/gallery";
 import { boardOfficials, groupOfficials, toRoman } from "@/lib/officials";
 import { government, highlights, landscape, nameOrigin, pending, society, sources, summary, timeline } from "@/lib/profile";
 import { getOfficials } from "@/lib/public-content";
@@ -8,7 +9,7 @@ import { SiteFooter, SiteHeader } from "../site-chrome";
 export const metadata = {
   title: "Profil Taratara II",
   description: "Sejarah, pemerintahan, bentang alam, dan kehidupan warga Kelurahan Taratara II, Tomohon Barat, Kota Tomohon.",
-  openGraph: { title: "Profil Taratara II", images: ["/taratara-hero-v3.webp"] },
+  openGraph: { title: "Profil Taratara II", images: ["/desa/permukiman.webp"] },
 };
 
 function Cite({ id }) {
@@ -46,8 +47,8 @@ export default async function ProfilePage() {
           </dl>
 
           <figure className="profile-page-media">
-            <div><Image src="/taratara-hero-v3.webp" alt="Ilustrasi lembah sawah, pohon kelapa, dan aliran sungai di kaki pegunungan" fill preload sizes="(max-width: 800px) 100vw, 1200px" /></div>
-            <figcaption>Foto ilustrasi. Dokumentasi asli Taratara II akan ditambahkan.</figcaption>
+            <div><Image src="/desa/permukiman.webp" alt="Permukiman Taratara II di lembah, dikelilingi perbukitan hijau" fill preload sizes="(max-width: 800px) 100vw, 1200px" /></div>
+            <figcaption>{PHOTO_CREDIT}</figcaption>
           </figure>
 
           <section className="profile-block" aria-labelledby="sejarah">
@@ -134,6 +135,19 @@ export default async function ProfilePage() {
             <p className="profile-more">
               Lihat juga <Link href="/#potensi">potensi wilayah</Link> dan <Link href="/#peta">peta lokasi</Link>.
             </p>
+          </section>
+
+          <section className="profile-block" aria-labelledby="galeri">
+            <h2 id="galeri">Galeri</h2>
+            <p className="profile-block-lead">Sudut-sudut Taratara II yang didokumentasikan Tim KKT Unsrat Angkatan 149.</p>
+            <div className="gallery">
+              {gallery.map((photo) => (
+                <figure key={photo.src}>
+                  <Image src={photo.src} alt={photo.caption} width={photo.width} height={photo.height} sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 380px" />
+                  <figcaption>{photo.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
           </section>
 
           <section className="profile-block profile-pending" aria-labelledby="menunggu">

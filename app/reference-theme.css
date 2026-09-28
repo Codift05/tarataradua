@@ -1551,6 +1551,49 @@ footer .shell {
   }
 }
 
+/* Galeri: a column-flow layout keeps each photo's own aspect ratio, captions sit below the image. */
+
+.gallery {
+  columns: 3 260px;
+  column-gap: 16px;
+  margin-top: 28px;
+}
+
+.gallery figure {
+  margin: 0 0 20px;
+  break-inside: avoid;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: var(--surface-strong);
+}
+
+.gallery figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .gallery {
+    columns: 2 150px;
+    column-gap: 10px;
+  }
+
+  .gallery figure {
+    margin-bottom: 14px;
+  }
+
+  .gallery figcaption {
+    font-size: 12px;
+  }
+}
+
 /* Tim KKT */
 
 .footer-credit {

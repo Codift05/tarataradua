@@ -18,7 +18,7 @@ export const metadata = {
     siteName: "Portal Kelurahan Taratara II",
     locale: "id_ID",
     type: "website",
-    images: ["/taratara-hero-v3.webp"],
+    images: ["/desa/sawah-senja.webp"],
   },
   title: {
     default: "Portal Kelurahan Taratara II",
