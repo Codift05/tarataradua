@@ -60,7 +60,9 @@ export default async function Home() {
       {usesSamples && (
         <aside className="prototype-notice">
           <div className="shell">
-            <strong>Pratinjau KKT.</strong> Sebagian informasi layanan, pengumuman, UMKM, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.
+            <strong>Pratinjau KKT.</strong>{" "}
+            <span className="notice-long">Sebagian informasi layanan, pengumuman, UMKM, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
+            <span className="notice-short">Sebagian konten masih contoh.</span>
           </div>
         </aside>
       )}
