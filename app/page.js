@@ -8,7 +8,8 @@ import { splitLines } from "@/lib/content";
 import { boardOfficials, groupOfficials } from "@/lib/officials";
 import { getOfficials, getPublicContent } from "@/lib/public-content";
 
-export const revalidate = 300;
+// Operator saves revalidate on demand; the hourly refresh only catches edits made outside the dashboard.
+export const revalidate = 3600;
 
 const sampleServices = [
   { name: "Surat Keterangan Domisili", description: "Persyaratan identitas dan pengantar lingkungan." },

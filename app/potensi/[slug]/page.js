@@ -5,8 +5,8 @@ import { getActiveBusinesses } from "@/lib/public-content";
 import { getPotential, matchesPotential, potentials } from "@/lib/potentials";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 
-export const revalidate = 300;
-export const dynamicParams = false;
+// Operator saves revalidate on demand; the hourly refresh only catches edits made outside the dashboard.
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return potentials.map(({ slug }) => ({ slug }));

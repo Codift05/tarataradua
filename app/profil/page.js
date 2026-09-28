@@ -16,7 +16,8 @@ function Cite({ id }) {
   return <a className="cite" href={`#sumber-${id}`} aria-label={`Sumber ${index}`}>{index}</a>;
 }
 
-export const revalidate = 300;
+// Operator saves revalidate on demand; the hourly refresh only catches edits made outside the dashboard.
+export const revalidate = 3600;
 
 const Vacant = () => <span className="org-vacant">Menunggu data</span>;
 

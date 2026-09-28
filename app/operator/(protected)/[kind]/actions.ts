@@ -1,10 +1,21 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
+import { PUBLIC_CONTENT_TAG } from "@/lib/public-content";
+import { potentials } from "@/lib/potentials";
 import { redirect } from "next/navigation";
 import { getContentType, validateContent } from "@/lib/content";
 import { requireOperator } from "@/lib/operator";
 import { createClient } from "@/lib/supabase/server";
+
+// Every public page that renders operator-managed content. Keep /potensi/[slug] without
+// `dynamicParams = false`: with it, Next 16 ignored revalidatePath for those prerendered pages.
+const publicPaths = ["/", "/profil", ...potentials.map((potential) => `/potensi/${potential.slug}`)];
+
+function refreshPublicPages() {
+  updateTag(PUBLIC_CONTENT_TAG);
+  publicPaths.forEach((path) => revalidatePath(path));
+}
 
 export type ContentFormState = { errors: Record<string, string>; message?: string } | null;
 
@@ -33,7 +44,7 @@ export async function saveContent(_: ContentFormState, formData: FormData): Prom
     return { errors: {}, message: "Data belum dapat disimpan. Coba lagi." };
   }
 
-  revalidatePath("/");
+  refreshPublicPages();
   revalidatePath(`/operator/${kind}`);
   redirect(`/operator/${kind}?saved=1`);
 }
@@ -49,7 +60,7 @@ export async function deleteContent(formData: FormData) {
   const { error } = await supabase.from(type.table).delete().eq("id", id).select("id").single();
   if (error) redirect(`/operator/${kind}/${id}?error=delete`);
 
-  revalidatePath("/");
+  refreshPublicPages();
   revalidatePath(`/operator/${kind}`);
   redirect(`/operator/${kind}?deleted=1`);
 }
