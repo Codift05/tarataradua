@@ -52,10 +52,10 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span className="footer-credit">
+        <a className="footer-credit" href="/tim-kkt">
           <Image src="/logo-kkt-taratara-ii.png" alt="" width={28} height={28} />
-          Dikembangkan bersama Tim KKT Taratara II
-        </span>
+          Dikembangkan bersama Tim KKT Unsrat Angkatan 149
+        </a>
         <a href="#top">Kembali ke atas</a>
       </div>
     </footer>
