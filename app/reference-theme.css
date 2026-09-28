@@ -1655,15 +1655,15 @@ footer .shell {
   line-height: 1.35;
 }
 
+/* One card size for leaders and members, so no row of photos dominates the page. */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 240px));
+  gap: 20px;
 }
 
 .team-grid-leaders {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 240px));
 }
 
 .team-card {
@@ -1704,7 +1704,7 @@ footer .shell {
 }
 
 .team-card-lg strong {
-  font-size: 19px;
+  font-size: 17px;
 }
 
 .team-card figcaption span {
@@ -1722,8 +1722,10 @@ footer .shell {
     grid-template-columns: 1fr;
   }
 
-  .team-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .team-grid,
+  .team-grid-leaders {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
   }
 }
 

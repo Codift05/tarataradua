@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Lets a verification build use its own folder (NEXT_DIST_DIR=.next-verify) without replacing the
+  // assets a running `next start` is serving from .next, which leaves that server without CSS.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
   images: {
     qualities: [65, 75],

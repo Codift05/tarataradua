@@ -18,7 +18,7 @@ function Member({ member, size = "sm", priority = false }) {
           alt={`Foto ${member.name}`}
           fill
           preload={priority}
-          sizes={size === "lg" ? "(max-width: 640px) 50vw, (max-width: 900px) 33vw, 360px" : "(max-width: 640px) 50vw, (max-width: 900px) 25vw, 260px"}
+          sizes="(max-width: 900px) 50vw, 240px"
         />
       </div>
       <figcaption>
