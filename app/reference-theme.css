@@ -1603,21 +1603,26 @@ footer .shell {
   margin: 0;
 }
 
+/* Cut-out portraits (transparent WebP) on one shared backdrop, shown in black and white;
+   colour returns on hover as feedback. */
 .team-photo {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: 16px;
-  background: var(--surface-strong);
+  background: linear-gradient(180deg, #eef2ea 0%, #dfe6d8 100%);
 }
 
 .team-photo img {
   object-fit: cover;
-  transition: transform 400ms ease;
+  object-position: center bottom;
+  filter: grayscale(1) contrast(1.06);
+  transition: filter 450ms ease, transform 450ms ease;
 }
 
 .team-card:hover .team-photo img {
-  transform: scale(1.03);
+  filter: grayscale(0) contrast(1);
+  transform: scale(1.02);
 }
 
 .team-card figcaption {
@@ -1707,6 +1712,10 @@ footer .shell {
 @media (prefers-reduced-motion: reduce) {
   .team-photo img {
     transition: none;
+  }
+
+  .team-card:hover .team-photo img {
+    transform: none;
   }
 }
 

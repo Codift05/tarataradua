@@ -6,7 +6,7 @@ import { SiteFooter, SiteHeader } from "../site-chrome";
 export const metadata = {
   title: "Tim KKT Unsrat Angkatan 149",
   description: "Mahasiswa KKT Universitas Sam Ratulangi Angkatan 149 Posko Taratara 2, Kecamatan Tomohon Barat, yang membangun portal ini bersama Kelurahan Taratara II.",
-  openGraph: { title: "Tim KKT Unsrat Angkatan 149, Posko Taratara 2", images: ["/tim-kkt/sultan.webp"] },
+  openGraph: { title: "Tim KKT Unsrat Angkatan 149, Posko Taratara 2", images: ["/tim-kkt/cutout/sultan.webp"] },
 };
 
 function Member({ member, size = "sm", priority = false }) {
@@ -14,7 +14,7 @@ function Member({ member, size = "sm", priority = false }) {
     <figure className={`team-card team-card-${size}`}>
       <div className="team-photo">
         <Image
-          src={`/tim-kkt/${member.photo}.webp`}
+          src={`/tim-kkt/cutout/${member.photo}.webp`}
           alt={`Foto ${member.name}`}
           fill
           preload={priority}
