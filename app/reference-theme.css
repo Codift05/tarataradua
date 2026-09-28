@@ -1831,45 +1831,6 @@ footer .shell {
   }
 }
 
-/* Cinematic hero on desktop: the photo fills the card, a dark scrim on the left and bottom
-   keeps the white headline readable instead of washing half the photo out in white. */
-@media (min-width: 801px) {
-  .hero::after {
-    background:
-      linear-gradient(90deg, rgba(12, 22, 14, .78) 0%, rgba(12, 22, 14, .55) 34%, rgba(12, 22, 14, .12) 64%, transparent 80%),
-      linear-gradient(0deg, rgba(12, 22, 14, .45) 0%, transparent 38%);
-  }
-
-  .hero-image img {
-    object-position: 60% 60%;
-  }
-
-  .hero h1 {
-    color: #fbfcf8;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, .25);
-  }
-
-  .hero h1 span {
-    color: var(--highlight);
-  }
-
-  .hero-lead {
-    color: rgba(251, 252, 248, .86);
-  }
-
-  .hero .button.secondary {
-    border-color: rgba(255, 255, 255, .45);
-    background: rgba(255, 255, 255, .12);
-    color: #fbfcf8;
-    backdrop-filter: blur(6px);
-  }
-
-  .hero .button.secondary:hover {
-    border-color: #fbfcf8;
-    background: rgba(255, 255, 255, .2);
-  }
-}
-
 /* Eight nav items: tighten spacing on narrow desktops so the bar stays on one line. */
 @media (min-width: 801px) and (max-width: 1000px) {
   .desktop-nav {
