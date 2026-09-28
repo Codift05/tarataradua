@@ -46,6 +46,7 @@ Jalankan skema dasar lalu migration operator:
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/2026092601_operator_backend.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/2026092602_content_management.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/2026092801_officials.sql
 ```
 
 Migration pertama menambahkan profil operator, policy RLS, izin update kolom status, dan audit log perubahan status. Migration kedua menambahkan tabel `announcements`, `services`, dan `businesses`: publik hanya membaca pengumuman berstatus `Terbit` serta layanan/UMKM yang aktif, sedangkan operator aktif dapat mengelola semuanya. Selama tabel konten kosong atau belum tersedia, beranda menampilkan data contoh beserta label pratinjau. Cara membuat operator pertama dijelaskan dalam [Panduan Operator](./docs/OPERATOR_GUIDE.md).
@@ -73,7 +74,7 @@ npm run build
 - `/operator/login` — autentikasi operator;
 - `/operator/aspirasi` — daftar dan filter laporan;
 - `/operator/aspirasi/[id]` — detail, status, dan audit log;
-- `/operator/pengumuman`, `/operator/layanan`, `/operator/umkm` — kelola konten portal.
+- `/operator/pengumuman`, `/operator/layanan`, `/operator/umkm`, `/operator/perangkat` — kelola konten portal dan struktur perangkat.
 
 ## Deploy ke Vercel
 

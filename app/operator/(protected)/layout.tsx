@@ -18,6 +18,7 @@ export default async function OperatorLayout({ children }: Readonly<{ children: 
           <Link href="/operator/pengumuman">Pengumuman</Link>
           <Link href="/operator/layanan">Layanan</Link>
           <Link href="/operator/umkm">UMKM</Link>
+          <Link href="/operator/perangkat">Perangkat</Link>
           <Link href="/" target="_blank">Portal publik</Link>
           <form action={logout}><button type="submit">Keluar</button></form>
         </nav>

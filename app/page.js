@@ -5,7 +5,8 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 import VillageMap from "./village-map";
 import { googleMapsUrl } from "@/lib/map-places";
 import { splitLines } from "@/lib/content";
-import { getPublicContent } from "@/lib/public-content";
+import { boardOfficials, groupOfficials } from "@/lib/officials";
+import { getOfficials, getPublicContent } from "@/lib/public-content";
 
 export const revalidate = 300;
 
@@ -32,7 +33,6 @@ const sampleBusinesses = [
 const profileFacts = [
   ["Kecamatan", "Tomohon Barat"],
   ["Kota", "Tomohon, Sulawesi Utara"],
-  ["Lurah", "Jan Petrus Wilar, SP"],
   ["Wilayah", "8 lingkungan"],
   ["Sawah beririgasi", "75 hektare"],
   ["Kode pos", "95424"],
@@ -47,7 +47,9 @@ const formatDate = (value) => new Intl.DateTimeFormat("id-ID", { dateStyle: "lon
 const waLink = (number, text) => `https://wa.me/${number.replace(/^0/, "62").replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
 
 export default async function Home() {
-  const content = await getPublicContent();
+  const [content, officials] = await Promise.all([getPublicContent(), getOfficials()]);
+  const { lurah } = groupOfficials(officials?.length ? officials : boardOfficials);
+  const facts = [...profileFacts.slice(0, 2), ["Lurah", lurah || "Menunggu data kelurahan"], ...profileFacts.slice(2)];
   const services = content.services?.length ? content.services : sampleServices;
   const announcements = content.announcements?.length ? content.announcements : null;
   const businesses = content.businesses?.length ? content.businesses : sampleBusinesses;
@@ -105,7 +107,7 @@ export default async function Home() {
             <a className="profile-link profile-home-link" href="#peta">Lihat peta →</a>
           </div>
           <dl className="profile-facts">
-            {profileFacts.map(([label, value]) => (
+            {facts.map(([label, value]) => (
               <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
             ))}
           </dl>

@@ -1277,6 +1277,177 @@ footer .shell {
   }
 }
 
+/* Struktur organisasi */
+
+.org {
+  margin-top: 28px;
+}
+
+.org-office {
+  display: grid;
+  justify-items: center;
+}
+
+.org-lead {
+  position: relative;
+  display: grid;
+  min-width: min(100%, 340px);
+  padding: 20px 28px;
+  gap: 2px;
+  border-radius: 16px;
+  background: var(--accent-strong);
+  color: var(--on-accent);
+  text-align: center;
+}
+
+.org-lead span {
+  color: color-mix(in srgb, var(--on-accent) 75%, transparent);
+  font-size: 14px;
+}
+
+.org-lead strong {
+  font-size: 20px;
+  letter-spacing: -.02em;
+}
+
+/* Connector from the lurah down to the office row. */
+.org-lead::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  content: "";
+}
+
+.org-row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.org-row > div,
+.org-lingkungan li {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.org-row span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.org-row strong {
+  font-size: 16px;
+}
+
+.org-vacant {
+  color: var(--muted);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.org-subhead {
+  margin: 36px 0 14px;
+  font-size: 18px;
+}
+
+.org-lingkungan {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.org-lingkungan li {
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.org-number {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.org-lingkungan dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.org-lingkungan dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.org-lingkungan dd {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+@media (max-width: 900px) {
+  .org-row,
+  .org-lingkungan {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .org-lead {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .org-lead strong {
+    font-size: 18px;
+  }
+
+  .org-row,
+  .org-lingkungan {
+    gap: 8px;
+  }
+
+  .org-row > div,
+  .org-lingkungan li {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .org-row strong,
+  .org-lingkungan dd {
+    font-size: 14px;
+  }
+
+  .org-number {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+}
+
 /* Compact mobile. Last in the cascade so it wins over the earlier breakpoints. */
 
 .notice-short {

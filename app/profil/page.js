@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { boardOfficials, groupOfficials, toRoman } from "@/lib/officials";
 import { government, highlights, landscape, nameOrigin, pending, society, sources, summary, timeline } from "@/lib/profile";
+import { getOfficials } from "@/lib/public-content";
 import { SiteFooter, SiteHeader } from "../site-chrome";
 
 export const metadata = {
@@ -14,7 +16,14 @@ function Cite({ id }) {
   return <a className="cite" href={`#sumber-${id}`} aria-label={`Sumber ${index}`}>{index}</a>;
 }
 
-export default function ProfilePage() {
+export const revalidate = 300;
+
+const Vacant = () => <span className="org-vacant">Menunggu data</span>;
+
+export default async function ProfilePage() {
+  const rows = await getOfficials();
+  const org = groupOfficials(rows?.length ? rows : boardOfficials);
+
   return (
     <>
       <SiteHeader />
@@ -59,10 +68,50 @@ export default function ProfilePage() {
               <p className="profile-block-lead">Kelurahan dipimpin oleh seorang lurah dan dibagi ke dalam lingkungan yang masing-masing dikoordinasi kepala lingkungan.</p>
             </div>
             <dl className="profile-facts">
+              <div><dt>Lurah</dt><dd>{org.lurah || "Menunggu data"}<Cite id="papan" /></dd></div>
               {government.map((item) => (
                 <div key={item.label}><dt>{item.label}</dt><dd>{item.value}<Cite id={item.source} /></dd></div>
               ))}
             </dl>
+          </section>
+
+          <section className="profile-block" aria-labelledby="struktur">
+            <h2 id="struktur">Struktur organisasi</h2>
+            <p className="profile-block-lead">Susunan perangkat Kelurahan Taratara Dua beserta kepala dan wakil kepala di delapan lingkungan.<Cite id="papan" /></p>
+
+            <div className="org">
+              <div className="org-office">
+                <div className="org-lead">
+                  <span>Lurah</span>
+                  <strong>{org.lurah || <Vacant />}</strong>
+                </div>
+                <div className="org-row">
+                  <div>
+                    <span>Sekretaris</span>
+                    <strong>{org.sekretaris || <Vacant />}</strong>
+                  </div>
+                  {org.seksi.map((item) => (
+                    <div key={item.position}>
+                      <span>{item.position}</span>
+                      <strong>{item.name || <Vacant />}</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <h3 className="org-subhead">Lingkungan</h3>
+              <ol className="org-lingkungan">
+                {org.lingkungan.map((item) => (
+                  <li key={item.number}>
+                    <span className="org-number">{toRoman(item.number)}</span>
+                    <dl>
+                      <div><dt>Kepala</dt><dd>{item.kepala || <Vacant />}</dd></div>
+                      <div><dt>Wakil</dt><dd>{item.wakil || <Vacant />}</dd></div>
+                    </dl>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </section>
 
           <section className="profile-block" aria-labelledby="alam">
@@ -96,7 +145,7 @@ export default function ProfilePage() {
             <h2 id="sumber">Sumber</h2>
             <ol className="sources">
               {Object.entries(sources).map(([id, source]) => (
-                <li key={id} id={`sumber-${id}`}><a href={source.href} target="_blank" rel="noreferrer">{source.label}</a></li>
+                <li key={id} id={`sumber-${id}`}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.label}</a> : source.label}</li>
               ))}
             </ol>
           </section>

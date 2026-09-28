@@ -57,6 +57,8 @@ Menu **Pengumuman**, **Layanan**, dan **UMKM** memakai alur yang sama: buka menu
 - **Layanan**: tulis satu persyaratan atau satu langkah per baris. Angka **Urutan tampil** yang lebih kecil muncul lebih dulu.
 - **UMKM**: cantumkan nomor WhatsApp hanya dengan persetujuan pemilik usaha. Hapus centang **Tampilkan di portal** untuk menyembunyikan usaha tanpa menghapusnya. Beranda menampilkan enam UMKM aktif terbaru.
 
+- **Perangkat**: saat ada pergantian lurah, sekretaris, kepala seksi, atau kepala/wakil kepala lingkungan, tambahkan nama baru dengan jabatan dan nomor lingkungan yang sesuai (0 untuk perangkat kantor), lalu hapus centang **Tampilkan di portal** pada nama lama. Bagan di halaman Profil dan nama lurah di beranda ikut berubah. NIP tidak dicantumkan di portal.
+
 Gunakan **Hapus** hanya untuk data yang salah input; penghapusan tidak dapat dibatalkan.
 
 ## Menonaktifkan Akses

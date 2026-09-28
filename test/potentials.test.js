@@ -22,3 +22,14 @@ test("map places use known categories and plausible coordinates", () => {
     assert.ok(Math.abs(place.lat - 1.318) < 0.02 && Math.abs(place.lng - 124.779) < 0.02, place.name);
   }
 });
+
+test("groups officials into the org chart with vacant seats", async () => {
+  const { boardOfficials, groupOfficials, positions } = await import("../lib/officials.js");
+  const org = groupOfficials(boardOfficials);
+  assert.equal(org.lurah, "Ebenhaezer A. R. Rares, SE");
+  assert.equal(org.lingkungan.length, 8);
+  assert.deepEqual(org.lingkungan[2], { number: 3, kepala: "Rolly Rares", wakil: "Lexi Wewengkang" });
+  assert.equal(org.seksi.find((item) => item.position.includes("Pembangunan")).name, "Hanny Loho, S.Sos");
+  assert.equal(org.seksi.find((item) => item.position.includes("Kesejahteraan")).name, null);
+  assert.ok(boardOfficials.every((official) => positions.includes(official.position)));
+});
