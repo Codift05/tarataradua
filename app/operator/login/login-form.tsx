@@ -12,8 +12,8 @@ export default function LoginForm() {
   return (
     <form action={action} className="operator-login-form">
       <div className="operator-field">
-        <label htmlFor="email">Email</label>
-        <input id="email" name="email" type="email" autoComplete="username" required autoFocus />
+        <label htmlFor="email">Username atau email</label>
+        <input id="email" name="email" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required autoFocus />
       </div>
       <div className="operator-field">
         <label htmlFor="password">Password</label>

@@ -12,7 +12,10 @@ Cara tercepat dari komputer yang memiliki `.env.local`:
 
 ```bash
 npm run operator:create -- operator@example.com "Nama Operator" admin
+npm run operator:create -- namapengguna "Nama Operator" operator
 ```
+
+Argumen pertama boleh berupa email atau username (3-32 huruf kecil, angka, titik, garis bawah, atau tanda hubung). Username disimpan sebagai email internal `namapengguna@operator.taratara2.local` yang tidak menerima surat, sehingga operator cukup mengetik username di halaman login. Akun berbasis username tidak dapat memakai fitur lupa password; reset dilakukan admin dengan menjalankan ulang script.
 
 Script membuat akun Supabase Auth yang sudah terkonfirmasi, mengaktifkan profil operator, lalu menampilkan password sementara satu kali. Isi `OPERATOR_PASSWORD` jika ingin menentukan password sendiri. Menjalankan ulang untuk email yang sama akan mengganti password dan mengaktifkan kembali profilnya.
 

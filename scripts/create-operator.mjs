@@ -1,12 +1,14 @@
 // Create (or reactivate) an operator account.
-// Usage: node --env-file=.env.local scripts/create-operator.mjs <email> "<Nama>" [admin|operator]
+// Usage: node --env-file=.env.local scripts/create-operator.mjs <username|email> "<Nama>" [admin|operator]
 // The password is read from OPERATOR_PASSWORD or generated and printed once.
 import { randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
+import { toLoginEmail } from "../lib/login-id.js";
 
-const [email, name, role = "admin"] = process.argv.slice(2);
+const [identifier, name, role = "admin"] = process.argv.slice(2);
+const email = toLoginEmail(identifier);
 if (!email || !name || !["admin", "operator"].includes(role)) {
-  console.error('Pemakaian: node --env-file=.env.local scripts/create-operator.mjs <email> "<Nama>" [admin|operator]');
+  console.error('Pemakaian: node --env-file=.env.local scripts/create-operator.mjs <username|email> "<Nama>" [admin|operator]');
   process.exit(1);
 }
 
@@ -36,5 +38,5 @@ const { error: profileError } = await admin
   .upsert({ id: user.id, name, role, active: true, updated_at: new Date().toISOString() });
 if (profileError) throw profileError;
 
-console.log(`Akun ${role} siap: ${email}`);
+console.log(`Akun ${role} siap. Masuk dengan: ${identifier.includes("@") ? email : identifier.trim().toLowerCase()}`);
 if (!process.env.OPERATOR_PASSWORD) console.log(`Password sementara: ${password}\nSimpan sekarang; password ini tidak ditampilkan lagi.`);

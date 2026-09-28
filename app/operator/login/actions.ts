@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { toLoginEmail } from "@/lib/login-id";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = { error: string } | null;
@@ -30,11 +31,11 @@ export async function login(_: LoginState, formData: FormData): Promise<LoginSta
   const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   if (isBlocked(ip)) return { error: "Terlalu banyak percobaan. Coba lagi dalam 15 menit." };
 
-  const email = String(formData.get("email") || "").trim().toLowerCase();
+  const email = toLoginEmail(String(formData.get("email") || ""));
   const password = String(formData.get("password") || "");
 
-  if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 8) {
-    return { error: "Masukkan email dan password yang valid." };
+  if (!email || password.length < 8) {
+    return { error: "Masukkan username atau email dan password yang valid." };
   }
 
   const supabase = await createClient();
@@ -42,7 +43,7 @@ export async function login(_: LoginState, formData: FormData): Promise<LoginSta
 
   if (error || !data.user) {
     recordFailure(ip);
-    return { error: "Email atau password tidak sesuai." };
+    return { error: "Username atau password tidak sesuai." };
   }
 
   const { data: profile } = await supabase

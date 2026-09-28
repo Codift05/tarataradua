@@ -64,3 +64,11 @@ test("only exposes known content kinds", () => {
   assert.equal(getContentType("constructor"), null);
   assert.equal(getContentType("umkm").table, "businesses");
 });
+
+test("maps operator usernames to internal login emails", async () => {
+  const { toLoginEmail } = await import("../lib/login-id.js");
+  assert.equal(toLoginEmail(" Admin "), "admin@operator.taratara2.local");
+  assert.equal(toLoginEmail("Operator@Example.com"), "operator@example.com");
+  assert.equal(toLoginEmail("ab"), null);
+  assert.equal(toLoginEmail("bad name"), null);
+});
