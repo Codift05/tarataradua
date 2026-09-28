@@ -8,6 +8,7 @@ const links = [
   ["/#umkm", "UMKM"],
   ["/#informasi", "Informasi"],
   ["/#pelayanan", "Layanan"],
+  ["/tim-kkt", "Tim KKT"],
   ["/#aspirasi", "Aspirasi"],
 ];
 

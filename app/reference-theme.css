@@ -1710,6 +1710,26 @@ footer .shell {
   }
 }
 
+/* Eight nav items: tighten spacing on narrow desktops so the bar stays on one line. */
+@media (min-width: 801px) and (max-width: 1000px) {
+  .desktop-nav {
+    gap: 2px;
+  }
+
+  .desktop-nav a {
+    padding-inline: 8px;
+  }
+
+  .desktop-nav a:last-child {
+    margin-left: 4px;
+    padding-inline: 12px;
+  }
+
+  .site-header .brand small {
+    display: none;
+  }
+}
+
 /* Compact mobile. Last in the cascade so it wins over the earlier breakpoints. */
 
 .notice-short {
