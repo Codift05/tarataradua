@@ -219,9 +219,11 @@ export default async function Home() {
           <div className="complaint-intro">
             <h2>Sampaikan aspirasi dengan jelas</h2>
             <p>Laporkan kondisi fasilitas publik atau lingkungan. Operator kelurahan akan menerima laporan untuk ditindaklanjuti.</p>
-            <div className="status-flow" aria-label="Alur status aspirasi">
-              <span>Baru</span><span>Diproses</span><span>Selesai</span>
-            </div>
+            <ol className="status-flow" aria-label="Alur status aspirasi">
+              <li><strong>Baru</strong><span>Laporan diterima</span></li>
+              <li><strong>Diproses</strong><span>Sedang ditangani</span></li>
+              <li><strong>Selesai</strong><span>Penanganan tuntas</span></li>
+            </ol>
           </div>
           <ComplaintForm />
         </section>

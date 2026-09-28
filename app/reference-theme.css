@@ -360,17 +360,7 @@ h2 {
   position: sticky;
 }
 
-.status-flow {
-  grid-template-columns: repeat(3, 1fr);
-}
 
-.status-flow span {
-  padding: 12px 14px;
-  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
-  border-left: 4px solid var(--accent);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--surface) 80%, transparent);
-}
 
 .complaint-form {
   padding: 34px;
@@ -478,9 +468,6 @@ footer .shell {
     min-height: min(104vw, 620px);
   }
 
-  .status-flow {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
 
   /* reference-theme sets desktop grids after globals.css, so restate the mobile collapse here. */
   .business,
@@ -558,9 +545,6 @@ footer .shell {
     padding: 52px 22px;
   }
 
-  .status-flow {
-    grid-template-columns: 1fr;
-  }
 
   .complaint-form {
     padding: 22px;
@@ -1279,6 +1263,89 @@ footer .shell {
   }
 }
 
+/* Complaint status steps: numbered, joined by a hairline. */
+
+.status-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: status;
+}
+
+.status-flow li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 36px 12px 0 0;
+  counter-increment: status;
+}
+
+.status-flow li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--accent-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 800;
+  content: counter(status);
+}
+
+.status-flow li:first-child::before {
+  background: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+.status-flow li:not(:last-child)::after {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  left: 26px;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent-strong) 35%, transparent);
+  content: "";
+}
+
+.status-flow strong {
+  font-size: 16px;
+}
+
+.status-flow span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .status-flow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .status-flow li {
+    padding: 2px 0 0 40px;
+  }
+
+  .status-flow li:not(:last-child)::after {
+    top: 26px;
+    right: auto;
+    bottom: -14px;
+    left: 13px;
+    width: 1px;
+    height: auto;
+  }
+}
+
 /* Complaint result */
 
 .form-message {
@@ -1961,17 +2028,7 @@ footer .shell {
     padding: 18px 4px;
   }
 
-  .status-flow {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-top: 20px;
-  }
 
-  .status-flow span {
-    min-height: 0;
-    padding: 10px;
-    font-size: 14px;
-  }
 
   .complaint-intro {
     position: relative;
