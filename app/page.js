@@ -86,8 +86,8 @@ export default async function Home() {
               alt="Sawah hijau dan pohon kelapa di Taratara II saat senja"
               fill
               preload
-              quality={65}
-              sizes="(max-width: 800px) 100vw, 55vw"
+              quality={75}
+              sizes="(max-width: 800px) 100vw, 1280px"
             />
           </div>
         </section>
