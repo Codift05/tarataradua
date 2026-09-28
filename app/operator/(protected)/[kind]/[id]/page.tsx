@@ -8,7 +8,6 @@ import ContentForm from "../content-form";
 const defaults = { active: true, sort_order: 0 };
 
 export default async function ContentEditPage({ params, searchParams }: { params: Promise<{ kind: string; id: string }>; searchParams: Promise<{ error?: string }> }) {
-  await requireOperator();
   const { kind, id: rawId } = await params;
   const type = getContentType(kind);
   if (!type) notFound();
@@ -19,9 +18,15 @@ export default async function ContentEditPage({ params, searchParams }: { params
   if (!isNew && (!Number.isInteger(id) || id < 1)) notFound();
 
   let values: Record<string, string | number | boolean | null> = defaults;
-  if (!isNew) {
+  if (isNew) {
+    await requireOperator();
+  } else {
     const supabase = await createClient();
-    const { data } = await supabase.from(type.table).select(type.fields.map((field) => field.name).join(", ")).eq("id", id).maybeSingle();
+    // The operator check runs alongside the query; RLS already hides drafts and hidden rows from non-operators.
+    const [, { data }] = await Promise.all([
+      requireOperator(),
+      supabase.from(type.table).select(type.fields.map((field) => field.name).join(", ")).eq("id", id).maybeSingle(),
+    ]);
     if (!data) notFound();
     values = data as unknown as typeof values;
   }

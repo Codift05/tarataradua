@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
 export type Operator = {
@@ -8,11 +9,16 @@ export type Operator = {
   role: "admin" | "operator";
 };
 
-export async function getOperator(): Promise<Operator | null> {
+// Wrapped in cache() so the layout and the page share one lookup per request.
+// getClaims() verifies the ES256 session JWT locally against cached signing keys, avoiding an
+// Auth server round trip (about 350 ms from Indonesia) on every operator page.
+export const getOperator = cache(async (): Promise<Operator | null> => {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+  const user = claims?.sub && typeof claims.email === "string" ? { id: claims.sub, email: claims.email } : null;
 
-  if (!user?.email) return null;
+  if (!user) return null;
 
   const { data: profile } = await supabase
     .from("operator_profiles")
@@ -29,7 +35,7 @@ export async function getOperator(): Promise<Operator | null> {
     name: profile.name,
     role: profile.role,
   };
-}
+});
 
 export async function requireOperator() {
   const operator = await getOperator();

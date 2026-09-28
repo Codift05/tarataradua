@@ -46,7 +46,7 @@ export default async function ProfilePage() {
           </dl>
 
           <figure className="profile-page-media">
-            <div><Image src="/taratara-hero-v3.webp" alt="Ilustrasi lembah sawah, pohon kelapa, dan aliran sungai di kaki pegunungan" fill sizes="(max-width: 800px) 100vw, 1200px" /></div>
+            <div><Image src="/taratara-hero-v3.webp" alt="Ilustrasi lembah sawah, pohon kelapa, dan aliran sungai di kaki pegunungan" fill preload sizes="(max-width: 800px) 100vw, 1200px" /></div>
             <figcaption>Foto ilustrasi. Dokumentasi asli Taratara II akan ditambahkan.</figcaption>
           </figure>
 

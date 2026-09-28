@@ -10,14 +10,15 @@ const date = (value: string) => new Intl.DateTimeFormat("id-ID", { dateStyle: "f
 export const metadata = { title: "Detail Aspirasi" };
 
 export default async function ComplaintDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ updated?: string; error?: string }> }) {
-  await requireOperator();
   const { id: rawId } = await params;
   const query = await searchParams;
   const id = Number(rawId);
   if (!Number.isInteger(id) || id < 1) notFound();
 
   const supabase = await createClient();
-  const [{ data: complaint }, { data: events }] = await Promise.all([
+  // The operator check runs alongside the queries; RLS already hides complaints from non-operators.
+  const [, { data: complaint }, { data: events }] = await Promise.all([
+    requireOperator(),
     supabase.from("complaints").select("*").eq("id", id).maybeSingle(),
     supabase.from("complaint_events").select("id, previous_status, new_status, created_at").eq("complaint_id", id).order("created_at", { ascending: false }),
   ]);

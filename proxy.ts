@@ -19,7 +19,9 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  await supabase.auth.getUser();
+  // Refreshes an expired session and rewrites the cookies. getClaims() verifies the JWT locally,
+  // so a valid session costs no network call here.
+  await supabase.auth.getClaims();
   return response;
 }
 

@@ -16,7 +16,8 @@ function display(column: string, value: Row[string]) {
 }
 
 export default async function ContentListPage({ params, searchParams }: { params: Promise<{ kind: string }>; searchParams: Promise<{ saved?: string; deleted?: string; page?: string }> }) {
-  await requireOperator();
+  // Start the operator check now and await it alongside the data queries; RLS already hides data from non-operators.
+  const access = requireOperator();
   const { kind } = await params;
   const type = getContentType(kind);
   if (!type) notFound();
@@ -25,12 +26,12 @@ export default async function ContentListPage({ params, searchParams }: { params
   const page = parsePage(query.page);
   const { from, to } = pageRange(page);
   const supabase = await createClient();
-  const { data, error, count } = await supabase
+  const [, { data, error, count }] = await Promise.all([access, supabase
     .from(type.table)
     .select(["id", ...type.listColumns].join(", "), { count: "exact" })
     .order(type.order.column, { ascending: type.order.ascending })
     .range(from, to)
-    .returns<Row[]>();
+    .returns<Row[]>()]);
 
   if (error?.code === "PGRST103") redirect(`/operator/${kind}`);
   const labels = Object.fromEntries(type.fields.map((field) => [field.name, field.label]));

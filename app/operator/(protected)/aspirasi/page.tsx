@@ -15,7 +15,8 @@ function formatDate(value: string) {
 export const metadata = { title: "Aspirasi Warga" };
 
 export default async function ComplaintsPage({ searchParams }: { searchParams: Promise<{ status?: string; page?: string }> }) {
-  await requireOperator();
+  // Start the operator check now and await it alongside the data queries; RLS already hides data from non-operators.
+  const access = requireOperator();
   const params = await searchParams;
   const activeStatus = statuses.includes(params.status as Status) ? params.status as Status : null;
   const page = parsePage(params.page);
@@ -30,7 +31,8 @@ export default async function ComplaintsPage({ searchParams }: { searchParams: P
 
   if (activeStatus) query = query.eq("status", activeStatus);
 
-  const [listResult, ...countResults] = await Promise.all([
+  const [, listResult, ...countResults] = await Promise.all([
+    access,
     query,
     ...statuses.map((status) => supabase.from("complaints").select("id", { count: "exact", head: true }).eq("status", status)),
   ]);
