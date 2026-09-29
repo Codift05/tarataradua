@@ -56,9 +56,10 @@ export default function VillageMap() {
     let cancelled = false;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let observer;
+    let near;
 
     // MapLibre needs the browser (WebGL), so it loads only on the client.
-    import("maplibre-gl").then((module) => {
+    const start = () => import("maplibre-gl").then((module) => {
       // v6 ships named exports only; older builds exposed a default object.
       const maplibregl = module.default ?? module;
       maplibregl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
@@ -114,8 +115,18 @@ export default function VillageMap() {
       observer.observe(container.current);
     });
 
+    // The map sits far down the home page: fetch MapLibre (~280 KB) only as the reader nears it,
+    // so it no longer competes with the hero photo on a phone connection.
+    near = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      near.disconnect();
+      start();
+    }, { rootMargin: "800px 0px" });
+    near.observe(container.current);
+
     return () => {
       cancelled = true;
+      near?.disconnect();
       observer?.disconnect();
       map.current?.remove();
       map.current = null;

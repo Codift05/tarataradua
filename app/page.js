@@ -72,6 +72,7 @@ export default async function Home() {
               alt="Foto udara Taratara II: permukiman di lembah dikelilingi sawah, kebun kelapa, dan perbukitan"
               fill
               preload
+              fetchPriority="high"
               quality={65}
               sizes="(max-width: 800px) 100vw, 55vw"
             />
