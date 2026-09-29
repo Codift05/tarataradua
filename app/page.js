@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import ComplaintFlow from "./complaint-flow";
-import ComplaintForm from "./complaint-form";
 import PotentialExplorer from "./potential-explorer";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 import VillageMap from "./village-map";
 import { googleMapsUrl } from "@/lib/map-places";
 import { splitLines } from "@/lib/content";
+import { reportTemplate, toWhatsAppNumber, whatsAppLink } from "@/lib/whatsapp-report";
 import { facilities } from "@/lib/facilities";
 import { groups, keyFigures, population, statisticsSource } from "@/lib/statistics";
 import { boardOfficials, groupOfficials } from "@/lib/officials";
@@ -31,6 +32,8 @@ const profileFacts = [
 ];
 
 const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+const reportNumber = toWhatsAppNumber(whatsapp);
+const reportHref = reportNumber ? whatsAppLink(reportNumber, reportTemplate) : null;
 const contactHref = whatsapp
   ? `https://wa.me/${whatsapp}?text=${encodeURIComponent("Halo, saya ingin menanyakan pelayanan Kelurahan Taratara II.")}`
   : "#kontak";
@@ -261,11 +264,30 @@ export default async function Home() {
 
         <section className="section complaint shell reveal" id="aspirasi">
           <div className="complaint-intro">
-            <h2>Sampaikan aspirasi dengan jelas</h2>
-            <p>Laporkan kondisi fasilitas publik atau lingkungan. {whatsapp ? "Laporan dikirim langsung ke WhatsApp petugas kelurahan untuk ditindaklanjuti." : "Operator kelurahan akan menerima laporan untuk ditindaklanjuti."}</p>
-            <ComplaintFlow viaWhatsApp={Boolean(whatsapp)} />
+            <h2>Sampaikan aspirasi lewat WhatsApp</h2>
+            <p>Laporkan kondisi fasilitas publik atau lingkungan langsung ke WhatsApp petugas Kelurahan Taratara II. Tanpa formulir, tanpa akun.</p>
           </div>
-          <ComplaintForm whatsapp={whatsapp} />
+          <div className="report-card">
+            <h3>Format laporan</h3>
+            <p>Tombol di bawah membuka WhatsApp dengan format ini. Lengkapi isiannya, lalu tekan Kirim.</p>
+            <pre className="report-template">{reportTemplate}</pre>
+            <ul className="report-tips">
+              <li>Lampirkan foto kondisi di lapangan bila ada.</li>
+              <li>Tulis lokasi sejelas mungkin, misalnya patokan terdekat.</li>
+              <li>Petugas akan membalas di chat yang sama.</li>
+            </ul>
+            {reportHref ? (
+              <a className="button primary report-button" href={reportHref} target="_blank" rel="noreferrer">
+                <WhatsappLogo size={22} weight="fill" aria-hidden="true" />
+                Laporkan lewat WhatsApp
+              </a>
+            ) : (
+              <p className="report-pending">Nomor WhatsApp resmi kelurahan akan ditambahkan setelah verifikasi.</p>
+            )}
+          </div>
+          <div className="complaint-steps">
+            <ComplaintFlow />
+          </div>
         </section>
       </main>
 

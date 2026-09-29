@@ -42,9 +42,9 @@ Ganti nama dan email sebelum menjalankan query. Gunakan role `operator` untuk pe
 
 ## Aspirasi Lewat WhatsApp
 
-Jika `NEXT_PUBLIC_WHATSAPP_NUMBER` diisi dengan nomor WhatsApp resmi kelurahan (format 08… atau 62…), setiap warga yang mengirim aspirasi mendapat tombol **Kirim ke WhatsApp Kelurahan**. WhatsApp warga terbuka dengan laporan dan nomor tiket yang sudah tersusun; setelah warga menekan Kirim, laporan masuk ke chat kelurahan dan petugas dapat membalas di sana. Laporan tetap tersimpan di dashboard sebagai arsip, tetapi dashboard tidak wajib dibuka. Jika penyimpanan ke server gagal, tombol WhatsApp tetap muncul agar laporan tidak hilang.
+Aspirasi warga dikirim langsung ke WhatsApp kelurahan. Tombol **Laporkan lewat WhatsApp** di beranda membuka chat ke nomor `NEXT_PUBLIC_WHATSAPP_NUMBER` dengan format laporan (nama, lingkungan, kategori, lokasi, kondisi) yang sudah terisi; warga melengkapinya, dapat melampirkan foto, lalu menekan Kirim. Petugas membalas di chat yang sama. Tidak ada formulir di portal, sehingga menu **Aspirasi** di dashboard tidak lagi menerima laporan baru dan hanya menyimpan laporan lama.
 
-Nomor yang sama dipakai tombol "Tanya petugas" di bagian Layanan. Setelah mengubah nilainya, jalankan build ulang (di Vercel: Redeploy).
+Isi nomor dengan WhatsApp resmi yang dipegang petugas kelurahan (format 08…, 62…, atau +62…), lalu build ulang (di Vercel: Redeploy). Selama nomor kosong, beranda menampilkan keterangan bahwa nomor akan ditambahkan. Nomor yang sama dipakai tombol "Tanya petugas" di bagian Layanan.
 
 ## Alur Harian
 
