@@ -684,16 +684,137 @@ footer .shell {
   font-size: 13px;
 }
 
-.potential-cycle {
-  margin: 48px 0 0;
-  padding-top: 20px;
+/* Saling terhubung: seven nodes joined by an SVG path (app/cycle-flow.js). */
+
+.cycle {
+  margin-top: 56px;
+  padding-top: 32px;
   border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 15px;
 }
 
-.potential-cycle strong {
-  color: var(--text);
+.cycle-head {
+  max-width: 62ch;
+}
+
+.cycle-head h3 {
+  margin-bottom: 6px;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+
+.cycle-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.cycle-track {
+  position: relative;
+  margin-top: 32px;
+}
+
+.cycle-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cycle-base,
+.cycle-progress {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.cycle-base {
+  stroke: color-mix(in srgb, var(--accent-strong) 16%, transparent);
+}
+
+.cycle-progress {
+  stroke: var(--accent-strong);
+}
+
+.cycle-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--highlight);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--highlight) 35%, transparent);
+  offset-rotate: 0deg;
+  pointer-events: none;
+}
+
+.cycle-track ol {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cycle-track li {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.cycle-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent-strong) 30%, transparent);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent-strong);
+}
+
+.cycle-track li:first-child .cycle-node,
+.cycle-track li:last-child .cycle-node {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--highlight);
+}
+
+.cycle-label {
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+@media (max-width: 720px) {
+  .cycle {
+    margin-top: 40px;
+  }
+
+  .cycle-track ol {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cycle-track li {
+    grid-template-columns: 40px minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .cycle-node {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @keyframes potential-in {
@@ -2355,9 +2476,6 @@ footer .shell {
     aspect-ratio: 16 / 10;
   }
 
-  .potential-cycle {
-    margin-top: 28px;
-  }
 
   .village-map-canvas {
     height: 300px;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Cow, Drop, Fish, Grains, TreePalm } from "@phosphor-icons/react";
 import { useRef, useState } from "react";
 import { cycle, potentials } from "@/lib/potentials";
+import CycleFlow from "./cycle-flow";
 
 const icons = { padi: Grains, perikanan: Fish, kelapa: TreePalm, peternakan: Cow, irigasi: Drop };
 
@@ -90,9 +91,7 @@ export default function PotentialExplorer() {
         </div>
       </div>
 
-      <p className="potential-cycle">
-        <strong>Saling terhubung.</strong> {cycle.join(" → ")}
-      </p>
+      <CycleFlow steps={cycle} />
     </div>
   );
 }
