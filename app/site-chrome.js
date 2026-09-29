@@ -5,7 +5,7 @@ const links = [
   ["/profil", "Profil"],
   ["/#potensi", "Potensi"],
   ["/#peta", "Peta"],
-  ["/#umkm", "UMKM"],
+  ["/#fasilitas", "Fasilitas"],
   ["/#informasi", "Informasi"],
   ["/#pelayanan", "Layanan"],
   ["/tim-kkt", "Tim KKT"],

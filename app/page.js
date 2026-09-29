@@ -5,6 +5,7 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 import VillageMap from "./village-map";
 import { googleMapsUrl } from "@/lib/map-places";
 import { splitLines } from "@/lib/content";
+import { facilities } from "@/lib/facilities";
 import { boardOfficials, groupOfficials } from "@/lib/officials";
 import { getOfficials, getPublicContent } from "@/lib/public-content";
 
@@ -22,12 +23,6 @@ const sampleAnnouncements = [
   { title: "Jadwal pelayanan kantor kelurahan", category: "Pelayanan" },
   { title: "Kerja bakti kebersihan lingkungan", category: "Kegiatan" },
   { title: "Pendataan UMKM Taratara II", category: "Pengumuman" },
-];
-
-const sampleBusinesses = [
-  { name: "Produk olahan kelapa", category: "Contoh kategori", description: "Nama usaha akan ditambahkan setelah pendataan warga." },
-  { name: "Hasil pertanian", category: "Contoh kategori", description: "Produk dan kontak akan ditambahkan setelah verifikasi." },
-  { name: "Kuliner rumahan", category: "Contoh kategori", description: "Direktori akan diisi bersama pelaku UMKM setempat." },
 ];
 
 // Figures not yet confirmed by the kelurahan stay marked as pending.
@@ -53,8 +48,9 @@ export default async function Home() {
   const facts = [...profileFacts.slice(0, 2), ["Lurah", lurah || "Menunggu data kelurahan"], ...profileFacts.slice(2)];
   const services = content.services?.length ? content.services : sampleServices;
   const announcements = content.announcements?.length ? content.announcements : null;
-  const businesses = content.businesses?.length ? content.businesses : sampleBusinesses;
-  const usesSamples = services === sampleServices || !announcements || businesses === sampleBusinesses;
+  // The UMKM directory only appears once operators have entered real businesses; no sample rows.
+  const businesses = content.businesses?.length ? content.businesses : null;
+  const usesSamples = services === sampleServices || !announcements;
 
   return (
     <>
@@ -64,7 +60,7 @@ export default async function Home() {
         <aside className="prototype-notice">
           <div className="shell">
             <strong>Pratinjau KKT.</strong>{" "}
-            <span className="notice-long">Sebagian informasi layanan, pengumuman, UMKM, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
+            <span className="notice-long">Sebagian informasi layanan, pengumuman, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
             <span className="notice-short">Sebagian konten masih contoh.</span>
           </div>
         </aside>
@@ -95,7 +91,7 @@ export default async function Home() {
         <section className="quick-access shell" aria-label="Akses cepat">
           <a href="#profil"><span>Wilayah dan warga</span><strong>Profil</strong></a>
           <a href="#potensi"><span>Sawah, kolam, kebun</span><strong>Potensi</strong></a>
-          <a href="#umkm"><span>Produk warga</span><strong>UMKM lokal</strong></a>
+          <a href="#fasilitas"><span>Kantor, sekolah, ibadah</span><strong>Fasilitas</strong></a>
           <a href="#pelayanan"><span>Surat dan aspirasi</span><strong>Layanan warga</strong></a>
         </section>
 
@@ -131,15 +127,36 @@ export default async function Home() {
           <a className="map-link" href={googleMapsUrl} target="_blank" rel="noreferrer">Buka di Google Maps →</a>
         </section>
 
-        <section className="section business shell reveal" id="umkm">
-          <div className="business-image">
-            <Image
-              src="/produk-umkm.webp"
-              alt="Ilustrasi produk lokal berupa kelapa, minyak kelapa, beras, dan keripik pisang"
-              fill
-              sizes="(max-width: 800px) 100vw, 44vw"
-            />
+        <section className="section shell reveal" id="fasilitas">
+          <div className="section-heading">
+            <h2>Fasilitas di Taratara&nbsp;II</h2>
+            <p>Tempat-tempat penting bagi warga dan pengunjung, lengkap dengan arah menuju lokasinya.</p>
           </div>
+          <div className="facility-grid">
+            {facilities.map((facility) => (
+              <article className={facility.featured ? "facility featured" : "facility"} key={facility.name}>
+                <div className="facility-photo">
+                  <Image
+                    src={facility.photo}
+                    alt={facility.alt}
+                    fill
+                    sizes={facility.featured ? "(max-width: 800px) 100vw, 780px" : "(max-width: 800px) 100vw, 380px"}
+                    style={facility.position ? { objectPosition: facility.position } : undefined}
+                  />
+                </div>
+                <div className="facility-body">
+                  <span>{facility.category}</span>
+                  <h3>{facility.name}</h3>
+                  <p>{facility.description}</p>
+                  <a href={facility.mapUrl} target="_blank" rel="noreferrer">Petunjuk arah →</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {businesses && (
+        <section className="section business shell reveal" id="umkm">
           <div className="business-content">
             <h2>Temukan produk usaha warga</h2>
             <p>Kenali produk dan usaha warga Taratara II.</p>
@@ -157,6 +174,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
+        )}
 
         <section className="section shell reveal" id="informasi">
           <div className="section-heading compact">

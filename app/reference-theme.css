@@ -1551,6 +1551,132 @@ footer .shell {
   }
 }
 
+/* Fasilitas: the kantor kelurahan leads across two columns, the rest fill one row of three. */
+
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+
+.facility.featured {
+  grid-column: span 2;
+}
+
+.facility-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--surface-strong);
+}
+
+.facility.featured .facility-photo {
+  aspect-ratio: auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.facility.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.facility-photo img {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.facility:hover .facility-photo img {
+  transform: scale(1.03);
+}
+
+.facility-body {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding-top: 14px;
+}
+
+.facility.featured .facility-body {
+  align-content: center;
+  padding-top: 0;
+}
+
+.facility-body span {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.facility-body h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -.02em;
+}
+
+.facility.featured .facility-body h3 {
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.15;
+}
+
+.facility-body p {
+  margin: 4px 0 6px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.facility-body a {
+  color: var(--accent-strong);
+  font-size: 15px;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .facility-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .facility.featured {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .facility.featured .facility-photo {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  .facility.featured .facility-body {
+    padding-top: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .facility-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .facility.featured {
+    grid-column: auto;
+  }
+
+  .facility-photo,
+  .facility.featured .facility-photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .facility-photo img {
+    transition: none;
+  }
+}
+
 /* Galeri: a column-flow layout keeps each photo's own aspect ratio, captions sit below the image. */
 
 .gallery {

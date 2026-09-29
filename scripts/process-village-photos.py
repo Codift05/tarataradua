@@ -31,6 +31,7 @@ PHOTOS = {
     "sekolah": "WhatsApp Image 2026-09-28 at 20.22.48.jpeg",
     "sekolah-halaman": "WhatsApp Image 2026-09-28 at 20.22.51.jpeg",
     "pos-satkamling": "WhatsApp Image 2026-09-28 at 20.22.51 (1).jpeg",
+    "minimarket-indomaret": "WhatsApp Image 2026-09-28 at 20.22.41.jpeg",
 }
 
 
