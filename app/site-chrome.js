@@ -6,7 +6,7 @@ const links = [
   ["/#potensi", "Potensi"],
   ["/#peta", "Peta"],
   ["/#fasilitas", "Fasilitas"],
-  ["/#informasi", "Informasi"],
+  ["/#statistik", "Statistik"],
   ["/#pelayanan", "Layanan"],
   ["/tim-kkt", "Tim KKT"],
   ["/#aspirasi", "Aspirasi"],

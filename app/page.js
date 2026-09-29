@@ -6,6 +6,7 @@ import VillageMap from "./village-map";
 import { googleMapsUrl } from "@/lib/map-places";
 import { splitLines } from "@/lib/content";
 import { facilities } from "@/lib/facilities";
+import { groups, keyFigures, population, statisticsSource } from "@/lib/statistics";
 import { boardOfficials, groupOfficials } from "@/lib/officials";
 import { getOfficials, getPublicContent } from "@/lib/public-content";
 
@@ -17,12 +18,6 @@ const sampleServices = [
   { name: "Surat Keterangan Usaha", description: "Informasi dokumen untuk kebutuhan usaha warga." },
   { name: "Surat Keterangan Tidak Mampu", description: "Panduan pengajuan dan verifikasi kelurahan." },
   { name: "Surat Kelahiran dan Kematian", description: "Dokumen pendukung dan alur pelaporan peristiwa." },
-];
-
-const sampleAnnouncements = [
-  { title: "Jadwal pelayanan kantor kelurahan", category: "Pelayanan" },
-  { title: "Kerja bakti kebersihan lingkungan", category: "Kegiatan" },
-  { title: "Pendataan UMKM Taratara II", category: "Pengumuman" },
 ];
 
 // Figures not yet confirmed by the kelurahan stay marked as pending.
@@ -50,7 +45,8 @@ export default async function Home() {
   const announcements = content.announcements?.length ? content.announcements : null;
   // The UMKM directory only appears once operators have entered real businesses; no sample rows.
   const businesses = content.businesses?.length ? content.businesses : null;
-  const usesSamples = services === sampleServices || !announcements;
+  // Announcements, like UMKM, only render once operators publish real ones.
+  const usesSamples = services === sampleServices;
 
   return (
     <>
@@ -60,7 +56,7 @@ export default async function Home() {
         <aside className="prototype-notice">
           <div className="shell">
             <strong>Pratinjau KKT.</strong>{" "}
-            <span className="notice-long">Sebagian informasi layanan, pengumuman, dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
+            <span className="notice-long">Sebagian informasi layanan dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
             <span className="notice-short">Sebagian konten masih contoh.</span>
           </div>
         </aside>
@@ -176,13 +172,58 @@ export default async function Home() {
         </section>
         )}
 
+        <section className="section shell reveal" id="statistik">
+          <div className="section-heading">
+            <h2>Taratara&nbsp;II dalam angka</h2>
+            <p>Gambaran kelurahan menurut data resmi Badan Pusat Statistik tahun {statisticsSource.year}.</p>
+          </div>
+
+          <dl className="stats-key">
+            {keyFigures.map((item) => (
+              <div key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}<span>{item.unit}</span></dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="stats-population" aria-label={`Penduduk: ${population.male} laki-laki dan ${population.female} perempuan`}>
+            <div className="stats-split" aria-hidden="true">
+              <span style={{ flexGrow: population.male }} />
+              <span style={{ flexGrow: population.female }} />
+            </div>
+            <p>
+              <span><i className="stats-dot male" />Laki-laki <strong>{population.male.toLocaleString("id-ID")}</strong></span>
+              <span><i className="stats-dot female" />Perempuan <strong>{population.female.toLocaleString("id-ID")}</strong></span>
+            </p>
+          </div>
+
+          <div className="stats-groups">
+            {groups.map((group) => (
+              <section key={group.title} aria-labelledby={`stat-${group.title}`}>
+                <h3 id={`stat-${group.title}`}>{group.title}</h3>
+                <dl>
+                  {group.items.map((item) => (
+                    <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>
+                  ))}
+                </dl>
+              </section>
+            ))}
+          </div>
+
+          <p className="stats-source">
+            Sumber: <a href={statisticsSource.href} target="_blank" rel="noreferrer">{statisticsSource.label}</a>, tabel {[...new Set([...keyFigures, ...groups.flatMap((group) => group.items)].map((item) => item.table))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).join(", ")}. Data tahun {statisticsSource.year}; di publikasi BPS kelurahan ini ditulis Tara-tara Dua.
+          </p>
+        </section>
+
+        {announcements && (
         <section className="section shell reveal" id="informasi">
           <div className="section-heading compact">
             <h2>Informasi terbaru</h2>
             <p>Pengumuman penting untuk pelayanan dan kegiatan masyarakat.</p>
           </div>
           <div className="announcement-grid">
-            {announcements ? announcements.map((item, index) => (
+            {announcements.map((item, index) => (
               <article className={index === 0 ? "featured" : ""} key={item.id}>
                 <span>{item.category}</span>
                 <h3>{item.title}</h3>
@@ -191,16 +232,10 @@ export default async function Home() {
                   {item.event_date ? `Tanggal kegiatan ${formatDate(item.event_date)}` : `Diterbitkan ${formatDate(item.published_at)}`}
                 </span>
               </article>
-            )) : sampleAnnouncements.map((item, index) => (
-              <article className={index === 0 ? "featured" : ""} key={item.title}>
-                <span>{item.category}</span>
-                <h3>{item.title}</h3>
-                <p className="announcement-status">Menunggu verifikasi</p>
-                <span className="verification-note">Detail setelah verifikasi</span>
-              </article>
             ))}
           </div>
         </section>
+        )}
 
         <section className="section shell reveal" id="pelayanan">
           <div className="section-heading">
