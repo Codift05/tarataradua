@@ -1,0 +1,16 @@
+# Only source is uploaded; Vercel installs dependencies and builds remotely.
+node_modules
+.next
+.next-verify
+.git
+.env*
+public/foto anggota
+public/foto desa
+public/drone desa *.png
+public/kelurahan.png
+public/sawa.png
+public/sawa 2.png
+public/Logo Tomohon.png
+public/LOGO KKT TARATARA 2.png
+public/maplibre
+scripts/__pycache__
