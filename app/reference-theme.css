@@ -1816,6 +1816,24 @@ footer .shell {
   background: #fff4f2;
 }
 
+.form-message.error {
+  display: grid;
+  gap: 6px;
+}
+
+.whatsapp-button {
+  display: inline-flex;
+  width: 100%;
+  margin-top: 8px;
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+.whatsapp-button:hover {
+  background: var(--accent);
+}
+
 /* Struktur organisasi */
 
 .org {

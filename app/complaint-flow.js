@@ -1,10 +1,10 @@
 "use client";
 
-import { CheckCircle, HourglassMedium, PaperPlaneTilt, Ticket, Tray } from "@phosphor-icons/react";
+import { ChatCircleText, CheckCircle, HourglassMedium, PaperPlaneTilt, Ticket, Tray } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
 
-const steps = [
+const dashboardSteps = [
   { icon: PaperPlaneTilt, title: "Kirim aspirasi", text: "Isi formulir di samping, tanpa perlu membuat akun." },
   { icon: Ticket, title: "Terima nomor tiket", text: "Simpan nomor tiket untuk menanyakan tindak lanjut." },
   { icon: Tray, title: "Baru", text: "Laporan masuk ke dashboard operator kelurahan." },
@@ -12,11 +12,20 @@ const steps = [
   { icon: CheckCircle, title: "Selesai", text: "Penanganan tuntas dan tercatat di riwayat status." },
 ];
 
+const whatsAppSteps = [
+  { icon: PaperPlaneTilt, title: "Isi formulir", text: "Ceritakan kondisinya di formulir samping, tanpa perlu membuat akun." },
+  { icon: Ticket, title: "Kirim lewat WhatsApp", text: "Pesan laporan beserta nomor tiket sudah tersusun, tinggal tekan Kirim." },
+  { icon: ChatCircleText, title: "Diterima petugas", text: "Petugas kelurahan membaca laporan dan bisa membalas di chat yang sama." },
+  { icon: HourglassMedium, title: "Ditindaklanjuti", text: "Petugas memverifikasi dan menangani kondisi yang dilaporkan." },
+  { icon: CheckCircle, title: "Selesai", text: "Penanganan tuntas dan dikabarkan kepada pelapor." },
+];
+
 const ease = [0.16, 1, 0.3, 1];
 
 // Explains the complaint lifecycle: the connector draws in once when the list scrolls into view,
 // steps enter in order, and a small marker travels the line to show reports moving forward.
-export default function ComplaintFlow() {
+export default function ComplaintFlow({ viaWhatsApp = false }) {
+  const steps = viaWhatsApp ? whatsAppSteps : dashboardSteps;
   const reduce = useReducedMotion();
   const inView = { once: true, amount: 0.4 };
   const list = useRef(null);

@@ -262,10 +262,10 @@ export default async function Home() {
         <section className="section complaint shell reveal" id="aspirasi">
           <div className="complaint-intro">
             <h2>Sampaikan aspirasi dengan jelas</h2>
-            <p>Laporkan kondisi fasilitas publik atau lingkungan. Operator kelurahan akan menerima laporan untuk ditindaklanjuti.</p>
-            <ComplaintFlow />
+            <p>Laporkan kondisi fasilitas publik atau lingkungan. {whatsapp ? "Laporan dikirim langsung ke WhatsApp petugas kelurahan untuk ditindaklanjuti." : "Operator kelurahan akan menerima laporan untuk ditindaklanjuti."}</p>
+            <ComplaintFlow viaWhatsApp={Boolean(whatsapp)} />
           </div>
-          <ComplaintForm />
+          <ComplaintForm whatsapp={whatsapp} />
         </section>
       </main>
 

@@ -40,6 +40,12 @@ set name = excluded.name,
 
 Ganti nama dan email sebelum menjalankan query. Gunakan role `operator` untuk petugas biasa dan `admin` untuk penanggung jawab utama.
 
+## Aspirasi Lewat WhatsApp
+
+Jika `NEXT_PUBLIC_WHATSAPP_NUMBER` diisi dengan nomor WhatsApp resmi kelurahan (format 08… atau 62…), setiap warga yang mengirim aspirasi mendapat tombol **Kirim ke WhatsApp Kelurahan**. WhatsApp warga terbuka dengan laporan dan nomor tiket yang sudah tersusun; setelah warga menekan Kirim, laporan masuk ke chat kelurahan dan petugas dapat membalas di sana. Laporan tetap tersimpan di dashboard sebagai arsip, tetapi dashboard tidak wajib dibuka. Jika penyimpanan ke server gagal, tombol WhatsApp tetap muncul agar laporan tidak hilang.
+
+Nomor yang sama dipakai tombol "Tanya petugas" di bagian Layanan. Setelah mengubah nilainya, jalankan build ulang (di Vercel: Redeploy).
+
 ## Alur Harian
 
 1. Masuk melalui `/operator/login`.

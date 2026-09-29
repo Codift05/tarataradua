@@ -1,10 +1,15 @@
 "use client";
 
 import { cloneElement, useState } from "react";
+import { buildReportMessage, toWhatsAppNumber, whatsAppLink } from "@/lib/whatsapp-report";
 
-const initialState = { status: "idle", message: "", ticketNumber: "", errors: {} };
+const initialState = { status: "idle", message: "", ticketNumber: "", errors: {}, forward: "" };
 
-export default function ComplaintForm() {
+// When the kelurahan WhatsApp number is set, every report ends with a button that opens WhatsApp
+// with the report prefilled, so staff receive it in the chat app they already use.
+export default function ComplaintForm({ whatsapp }) {
+  const target = toWhatsAppNumber(whatsapp);
+  const forwardLink = (report, ticket) => (target ? whatsAppLink(target, buildReportMessage(report, ticket)) : "");
   const [state, setState] = useState(initialState);
 
   async function submit(event) {
@@ -23,11 +28,14 @@ export default function ComplaintForm() {
       const result = await response.json();
 
       if (!response.ok) {
+        // Validation errors must be fixed first; for server-side failures the report can still go by WhatsApp.
+        const serverFailed = response.status >= 500 || response.status === 429;
         setState({
           status: "error",
           message: result.message || "Aspirasi belum dapat dikirim.",
           ticketNumber: "",
           errors: result.errors || {},
+          forward: serverFailed ? forwardLink(data) : "",
         });
         return;
       }
@@ -38,6 +46,7 @@ export default function ComplaintForm() {
         message: "Aspirasi sudah diterima. Simpan nomor tiket untuk tindak lanjut.",
         ticketNumber: result.ticketNumber,
         errors: {},
+        forward: forwardLink(data, result.ticketNumber),
       });
     } catch {
       setState({
@@ -45,6 +54,7 @@ export default function ComplaintForm() {
         message: "Koneksi bermasalah. Coba lagi beberapa saat.",
         ticketNumber: "",
         errors: {},
+        forward: forwardLink(data),
       });
     }
   }
@@ -101,18 +111,35 @@ export default function ComplaintForm() {
         Data yang diberikan hanya digunakan untuk tindak lanjut laporan.
       </p>
 
-      {state.status === "error" && <p className="form-message error" role="alert">{state.message}</p>}
+      {state.status === "error" && (
+        <div className="form-message error" role="alert">
+          <span>{state.message}</span>
+          {state.forward && (
+            <>
+              <span>Laporan tetap bisa dikirim langsung ke WhatsApp kelurahan.</span>
+              <a className="button whatsapp-button" href={state.forward} target="_blank" rel="noreferrer">Kirim ke WhatsApp Kelurahan</a>
+            </>
+          )}
+        </div>
+      )}
       {state.status === "success" && (
         <div className="form-message success" role="status">
-          <strong>Aspirasi terkirim.</strong>
+          <strong>{state.forward ? "Satu langkah lagi." : "Aspirasi terkirim."}</strong>
           <span>Nomor tiket Anda:</span>
           <span className="ticket-number">{state.ticketNumber}</span>
-          <span>Simpan nomor ini untuk menanyakan tindak lanjut ke kelurahan.</span>
+          {state.forward ? (
+            <>
+              <span>Tekan tombol di bawah, lalu tekan Kirim di WhatsApp agar laporan sampai ke petugas kelurahan.</span>
+              <a className="button whatsapp-button" href={state.forward} target="_blank" rel="noreferrer">Kirim ke WhatsApp Kelurahan</a>
+            </>
+          ) : (
+            <span>Simpan nomor ini untuk menanyakan tindak lanjut ke kelurahan.</span>
+          )}
         </div>
       )}
 
       <button className="button primary submit" type="submit" disabled={state.status === "loading"}>
-        {state.status === "loading" ? "Mengirim..." : "Kirim aspirasi"}
+        {state.status === "loading" ? "Mengirim..." : state.status === "success" ? "Kirim laporan baru" : "Kirim aspirasi"}
       </button>
     </form>
   );
