@@ -74,8 +74,8 @@ export default async function Home() {
           </div>
           <div className="hero-image">
             <Image
-              src="/desa/sawah-senja.webp"
-              alt="Sawah hijau dan pohon kelapa di Taratara II saat senja"
+              src="/desa/drone-desa.webp"
+              alt="Foto udara Taratara II: permukiman di lembah dikelilingi sawah, kebun kelapa, dan perbukitan"
               fill
               preload
               quality={65}
