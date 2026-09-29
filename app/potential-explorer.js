@@ -78,8 +78,9 @@ export default function PotentialExplorer() {
             </div>
           </dl>
           {data.journals.length > 0 && (
-            <div className="potential-journals">
-              <h4>Bacaan ilmiah</h4>
+            // Collapsed by default so the panel stays short on phones; one tap opens the references.
+            <details className="potential-journals">
+              <summary>Bacaan ilmiah ({data.journals.length})</summary>
               <ol>
                 {data.journals.map((paper) => (
                   <li key={paper.href}>
@@ -88,7 +89,7 @@ export default function PotentialExplorer() {
                   </li>
                 ))}
               </ol>
-            </div>
+            </details>
           )}
           <div className="potential-links">
             <Link href={`/potensi/${item.slug}`}>Selengkapnya tentang {item.title.toLowerCase()} →</Link>
