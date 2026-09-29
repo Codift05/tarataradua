@@ -1263,87 +1263,93 @@ footer .shell {
   }
 }
 
-/* Complaint status steps: numbered, joined by a hairline. */
+/* Complaint workflow: vertical steps joined by an SVG line that draws in (app/complaint-flow.js). */
 
-.status-flow {
+.flow {
+  position: relative;
+  margin-top: 28px;
+}
+
+.flow-line {
+  position: absolute;
+  top: 18px;
+  left: 17px;
+  width: 2px;
+  height: 0;
+  overflow: visible;
+}
+
+.flow-track {
+  stroke: color-mix(in srgb, var(--accent-strong) 18%, transparent);
+  stroke-width: 2;
+  fill: none;
+}
+
+.flow-progress {
+  stroke: var(--accent-strong);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.flow-pulse {
+  position: absolute;
+  top: calc(var(--flow-top, 18px) - 5px);
+  left: 13px;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--highlight);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--highlight) 35%, transparent);
+  pointer-events: none;
+}
+
+.flow ol {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 28px 0 0;
+  gap: 18px;
+  margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: status;
 }
 
-.status-flow li {
-  position: relative;
+.flow li {
   display: grid;
-  gap: 2px;
-  padding: 36px 12px 0 0;
-  counter-increment: status;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
 }
 
-.status-flow li::before {
-  position: absolute;
-  top: 0;
-  left: 0;
+.flow-node {
+  position: relative;
   z-index: 1;
   display: grid;
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
   place-items: center;
-  border: 1px solid var(--accent-strong);
+  border: 1px solid color-mix(in srgb, var(--accent-strong) 30%, transparent);
   border-radius: 50%;
   background: var(--surface);
   color: var(--accent-strong);
-  font-size: 13px;
-  font-weight: 800;
-  content: counter(status);
 }
 
-.status-flow li:first-child::before {
+.flow-node.done {
+  border-color: var(--accent-strong);
   background: var(--accent-strong);
-  color: var(--on-accent);
+  color: var(--highlight);
 }
 
-.status-flow li:not(:last-child)::after {
-  position: absolute;
-  top: 13px;
-  right: 0;
-  left: 26px;
-  height: 1px;
-  background: color-mix(in srgb, var(--accent-strong) 35%, transparent);
-  content: "";
-}
-
-.status-flow strong {
+.flow strong {
+  display: block;
+  padding-top: 6px;
   font-size: 16px;
 }
 
-.status-flow span {
+.flow p {
+  margin: 2px 0 0;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-@media (max-width: 640px) {
-  .status-flow {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .status-flow li {
-    padding: 2px 0 0 40px;
-  }
-
-  .status-flow li:not(:last-child)::after {
-    top: 26px;
-    right: auto;
-    bottom: -14px;
-    left: 13px;
-    width: 1px;
-    height: auto;
-  }
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 /* Complaint result */

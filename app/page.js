@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ComplaintFlow from "./complaint-flow";
 import ComplaintForm from "./complaint-form";
 import PotentialExplorer from "./potential-explorer";
 import { SiteFooter, SiteHeader } from "./site-chrome";
@@ -272,11 +273,7 @@ export default async function Home() {
           <div className="complaint-intro">
             <h2>Sampaikan aspirasi dengan jelas</h2>
             <p>Laporkan kondisi fasilitas publik atau lingkungan. Operator kelurahan akan menerima laporan untuk ditindaklanjuti.</p>
-            <ol className="status-flow" aria-label="Alur status aspirasi">
-              <li><strong>Baru</strong><span>Laporan diterima</span></li>
-              <li><strong>Diproses</strong><span>Sedang ditangani</span></li>
-              <li><strong>Selesai</strong><span>Penanganan tuntas</span></li>
-            </ol>
+            <ComplaintFlow />
           </div>
           <ComplaintForm />
         </section>
