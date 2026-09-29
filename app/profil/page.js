@@ -9,7 +9,7 @@ import { SiteFooter, SiteHeader } from "../site-chrome";
 export const metadata = {
   title: "Profil Taratara II",
   description: "Sejarah, pemerintahan, bentang alam, dan kehidupan warga Kelurahan Taratara II, Tomohon Barat, Kota Tomohon.",
-  openGraph: { title: "Profil Taratara II", images: ["/desa/permukiman.webp"] },
+  openGraph: { title: "Profil Taratara II", images: ["/desa/permukiman-senja.webp"] },
 };
 
 function Cite({ id }) {
@@ -47,8 +47,8 @@ export default async function ProfilePage() {
           </dl>
 
           <figure className="profile-page-media">
-            <div><Image src="/desa/permukiman.webp" alt="Permukiman Taratara II di lembah, dikelilingi perbukitan hijau" fill preload sizes="(max-width: 800px) 100vw, 1200px" /></div>
-            <figcaption>{PHOTO_CREDIT}</figcaption>
+            <div><Image src="/desa/permukiman-senja.webp" alt="Permukiman Taratara II di lembah saat senja, dengan gereja dan perbukitan hijau" fill preload sizes="(max-width: 800px) 100vw, 1200px" /></div>
+            <figcaption>{PHOTO_CREDIT}, disempurnakan dengan AI</figcaption>
           </figure>
 
           <section className="profile-block" aria-labelledby="sejarah">

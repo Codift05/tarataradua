@@ -66,7 +66,7 @@ export default function PotentialExplorer() {
               />
             ))}
           </div>
-          <figcaption>{item.photo ? "Dokumentasi Tim KKT Unsrat 149" : "Foto ilustrasi"}</figcaption>
+          <figcaption>{item.photo ? `Dokumentasi Tim KKT Unsrat 149${item.enhanced ? ", disempurnakan dengan AI" : ""}` : "Foto ilustrasi"}</figcaption>
         </figure>
 
         <div className="potential-detail" key={item.slug}>

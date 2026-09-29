@@ -46,7 +46,7 @@ export default async function PotentialPage({ params }) {
             <div>
               <Image src={potential.image} alt={potential.alt} fill preload sizes="(max-width: 800px) 100vw, 1200px" style={{ objectPosition: potential.position }} />
             </div>
-            <figcaption>{potential.photo ? "Dokumentasi Tim KKT Unsrat 149" : "Foto ilustrasi. Dokumentasi asli akan ditambahkan setelah kunjungan lapangan."}</figcaption>
+            <figcaption>{potential.photo ? `Dokumentasi Tim KKT Unsrat 149${potential.enhanced ? ", disempurnakan dengan AI" : ""}` : "Foto ilustrasi. Dokumentasi asli akan ditambahkan setelah kunjungan lapangan."}</figcaption>
           </figure>
 
           <div className="potential-page-body">
