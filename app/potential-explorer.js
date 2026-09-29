@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Cow, Drop, Fish, Grains, TreePalm } from "@phosphor-icons/react";
 import { useRef, useState } from "react";
 import { cycle, potentials } from "@/lib/potentials";
+import { potentialData } from "@/lib/potential-data";
 import CycleFlow from "./cycle-flow";
+import PotentialChart from "./potential-chart";
 
 const icons = { padi: Grains, perikanan: Fish, kelapa: TreePalm, peternakan: Cow, irigasi: Drop };
 
@@ -18,6 +19,7 @@ export default function PotentialExplorer() {
   const [active, setActive] = useState(0);
   const tabs = useRef([]);
   const item = potentials[active];
+  const data = potentialData[item.slug];
 
   const onKeyDown = (event) => {
     const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
@@ -53,22 +55,14 @@ export default function PotentialExplorer() {
       </div>
 
       <div className="potential-stage" id="potensi-panel" role="tabpanel" aria-labelledby={`potensi-tab-${item.slug}`}>
-        <figure className="potential-media">
-          <div>
-            {potentials.map((potential, index) => (
-              <Image
-                key={potential.slug}
-                className={index === active ? "active" : ""}
-                src={potential.image}
-                alt={index === active ? potential.alt : ""}
-                fill
-                sizes="(max-width: 800px) 100vw, 52vw"
-                style={{ objectPosition: potential.position }}
-              />
+        <div className="potential-visual" key={`chart-${item.slug}`}>
+          <PotentialChart chart={data.chart} />
+          <dl className="potential-stats">
+            {data.stats.map((stat) => (
+              <div key={stat.label}><dt>{stat.label}</dt><dd>{stat.value}</dd></div>
             ))}
-          </div>
-          <figcaption>{item.photo ? `Dokumentasi Tim KKT Unsrat 149${item.enhanced ? ", disempurnakan dengan AI" : ""}` : "Foto ilustrasi"}</figcaption>
-        </figure>
+          </dl>
+        </div>
 
         <div className="potential-detail" key={item.slug}>
           <h3>{item.title}</h3>
@@ -83,11 +77,27 @@ export default function PotentialExplorer() {
               <dd>{item.activities.join(" → ")}</dd>
             </div>
           </dl>
+          {data.journals.length > 0 && (
+            <div className="potential-journals">
+              <h4>Bacaan ilmiah</h4>
+              <ol>
+                {data.journals.map((paper) => (
+                  <li key={paper.href}>
+                    <a href={paper.href} target="_blank" rel="noreferrer">{paper.title}</a>
+                    <span>{paper.authors} ({paper.year}). {paper.journal}.</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
           <div className="potential-links">
             <Link href={`/potensi/${item.slug}`}>Selengkapnya tentang {item.title.toLowerCase()} →</Link>
             {item.cta && <a href={item.cta.href}>{item.cta.label} →</a>}
           </div>
-          <p className="potential-note">Luas lahan, kelompok, dan jumlah pelaku menunggu pendataan bersama kelurahan.</p>
+          <p className="potential-note">
+            {data.note && <>{data.note} </>}
+            Data tingkat kecamatan: <a href={data.source.href} target="_blank" rel="noreferrer">{data.source.label}</a>, tabel {data.source.tables}. Data per kelurahan menunggu pendataan bersama kelurahan.
+          </p>
         </div>
       </div>
 

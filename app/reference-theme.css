@@ -600,33 +600,10 @@ footer .shell {
   margin-top: 40px;
 }
 
-.potential-media {
-  margin: 0;
-}
 
-.potential-media > div {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 16px;
-  background: var(--surface-strong);
-}
 
-.potential-media img {
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 500ms ease;
-}
 
-.potential-media img.active {
-  opacity: 1;
-}
 
-.potential-media figcaption {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 13px;
-}
 
 .potential-detail {
   padding-top: 4px;
@@ -682,6 +659,264 @@ footer .shell {
   margin: 24px 0 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+/* Potential tab visuals: an SVG chart and key figures (app/potential-chart.js). */
+
+.potential-visual {
+  display: grid;
+  gap: 24px;
+  padding: 26px;
+  border-radius: 18px;
+  background: var(--accent-soft);
+  animation: potential-in 360ms ease both;
+}
+
+.chart {
+  margin: 0;
+}
+
+.chart-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  margin: -6px 0 14px;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.chart-swatch.s0 {
+  background: var(--accent-strong);
+}
+
+.chart-swatch.s1 {
+  background: var(--highlight);
+}
+
+.chart-rows {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chart-rows li {
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr) 92px;
+  align-items: center;
+  gap: 12px;
+  outline: 0;
+  transition: opacity 200ms ease;
+}
+
+/* Hover or focus one row to compare it; the rest fade back. */
+.chart-rows:hover li:not(:hover),
+.chart-rows:focus-within li:not(:focus) {
+  opacity: .45;
+}
+
+.chart-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.chart-rows li.home .chart-label {
+  color: var(--text);
+  font-weight: 750;
+}
+
+.chart-bar {
+  display: block;
+  width: 100%;
+  height: 14px;
+  overflow: visible;
+}
+
+.chart-track {
+  fill: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+.chart-fill {
+  fill: color-mix(in srgb, var(--accent-strong) 45%, var(--surface));
+}
+
+.chart-rows li.home .chart-fill.s0 {
+  fill: var(--accent-strong);
+}
+
+.chart-fill.s1,
+.chart-rows li.home .chart-fill.s1 {
+  fill: var(--highlight);
+}
+
+.chart-value {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.chart-value small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.chart-trend {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-axis {
+  stroke: color-mix(in srgb, var(--accent-strong) 20%, transparent);
+  stroke-width: 1.5;
+}
+
+.chart-area {
+  fill: color-mix(in srgb, var(--highlight) 40%, transparent);
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-point circle {
+  fill: var(--surface);
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.chart-point-value {
+  fill: var(--text);
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.chart-point-label {
+  fill: var(--muted);
+  font-size: 18px;
+}
+
+.chart-unit {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.potential-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--accent-strong) 15%, transparent);
+}
+
+.potential-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.potential-stats dd {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+}
+
+.potential-stats dt {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.potential-journals {
+  margin: 4px 0 18px;
+}
+
+.potential-journals h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.potential-journals ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+.potential-journals a {
+  color: var(--accent-strong);
+  font-weight: 650;
+  text-underline-offset: 3px;
+}
+
+.potential-journals span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.potential-note a {
+  color: var(--accent-strong);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .potential-visual {
+    padding: 18px;
+    margin-inline: -4px;
+  }
+
+  .chart-rows li {
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
+  }
+
+  .chart-bar {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .potential-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* Saling terhubung: seven nodes joined by an SVG path (app/cycle-flow.js). */
@@ -2472,9 +2707,6 @@ footer .shell {
     margin-top: 20px;
   }
 
-  .potential-media > div {
-    aspect-ratio: 16 / 10;
-  }
 
 
   .village-map-canvas {
