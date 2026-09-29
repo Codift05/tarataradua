@@ -118,7 +118,7 @@ export default async function Home() {
         <section className="section shell reveal" id="peta">
           <div className="section-heading">
             <h2>Lokasi Taratara&nbsp;II</h2>
-            <p>Taratara II berada di lembah sisi barat Kota Tomohon, berdampingan dengan Taratara I dan Taratara III. Titik sawah, kolam ikan, dan kebun kelapa akan ditambahkan setelah survei lapangan.</p>
+            <p>Lihat lembah Taratara II dari citra satelit dalam tampilan 3D: permukiman di tengah, sawah dan kebun kelapa di sekelilingnya, berdampingan dengan Taratara I dan Taratara III.</p>
           </div>
           <VillageMap />
           <a className="map-link" href={googleMapsUrl} target="_blank" rel="noreferrer">Buka di Google Maps →</a>
