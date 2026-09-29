@@ -100,15 +100,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .desktop-nav a:hover { color: var(--accent); }
 .mobile-nav { display: none; }
 
-.prototype-notice {
-  padding-block: 10px;
-  border-bottom: 1px solid var(--line);
-  background: var(--accent-soft);
-  color: var(--muted);
-  font-size: 13px;
-}
 
-.prototype-notice strong { color: var(--text); }
 
 section[id], footer[id] { scroll-margin-top: 96px; }
 

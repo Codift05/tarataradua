@@ -103,17 +103,7 @@ body {
   transform: translateY(1px);
 }
 
-.prototype-notice {
-  padding-block: 9px 0;
-  border: 0;
-  background: transparent;
-}
 
-.prototype-notice .shell {
-  color: var(--muted);
-  font-size: 12px;
-  text-align: center;
-}
 
 section[id],
 footer[id] {
@@ -2605,9 +2595,6 @@ footer .shell {
 
 /* Compact mobile. Last in the cascade so it wins over the earlier breakpoints. */
 
-.notice-short {
-  display: none;
-}
 
 @media (max-width: 640px) {
   .shell,
@@ -2653,21 +2640,9 @@ footer .shell {
     align-items: center;
   }
 
-  .prototype-notice {
-    padding-top: 8px;
-  }
 
-  .prototype-notice .shell {
-    font-size: 12px;
-  }
 
-  .notice-long {
-    display: none;
-  }
 
-  .notice-short {
-    display: inline;
-  }
 
   /* Hero: text, then actions, then a framed photo. No empty band reserved for a background image. */
   .hero {

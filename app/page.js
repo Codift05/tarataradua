@@ -47,21 +47,11 @@ export default async function Home() {
   // The UMKM directory only appears once operators have entered real businesses; no sample rows.
   const businesses = content.businesses?.length ? content.businesses : null;
   // Announcements, like UMKM, only render once operators publish real ones.
-  const usesSamples = services === sampleServices;
 
   return (
     <>
       <SiteHeader />
 
-      {usesSamples && (
-        <aside className="prototype-notice">
-          <div className="shell">
-            <strong>Pratinjau KKT.</strong>{" "}
-            <span className="notice-long">Sebagian informasi layanan dan kontak masih berupa contoh yang menunggu verifikasi kelurahan.</span>
-            <span className="notice-short">Sebagian konten masih contoh.</span>
-          </div>
-        </aside>
-      )}
 
       <main>
         <section className="hero shell" id="beranda">
